@@ -23,7 +23,6 @@ class JoinSquadWorker
         let queue = DispatchQueue(label: "com.app.queue")
         var localArray : NSMutableArray = []
         
-        localArray = []
         queue.sync {
             self.db.collection("groups").getDocuments() { (querySnapshot, err) in
                 if let err = err {

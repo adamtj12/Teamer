@@ -43,5 +43,4 @@ class AddPlayerDetailsPresenter: AddPlayerDetailsPresentationLogic
         details.userId = showing.userId
         viewController?.addedPlayerDetails(showing: details)
     }
-    
 }

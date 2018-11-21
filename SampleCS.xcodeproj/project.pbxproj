@@ -16,12 +16,6 @@
 		8D6092F1219B16DF0083D6DE /* AddPlayerDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6092EB219B16DF0083D6DE /* AddPlayerDetailsModels.swift */; };
 		8D6092F2219B16DF0083D6DE /* AddPlayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6092EC219B16DF0083D6DE /* AddPlayerDetailsViewController.swift */; };
 		8D6092F3219B16DF0083D6DE /* AddPlayerDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6092ED219B16DF0083D6DE /* AddPlayerDetailsInteractor.swift */; };
-		8D6092FC219B3EF90083D6DE /* MarkTestPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6092F6219B3EF90083D6DE /* MarkTestPresenter.swift */; };
-		8D6092FD219B3EF90083D6DE /* MarkTestWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6092F7219B3EF90083D6DE /* MarkTestWorker.swift */; };
-		8D6092FE219B3EF90083D6DE /* MarkTestRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6092F8219B3EF90083D6DE /* MarkTestRouter.swift */; };
-		8D6092FF219B3EF90083D6DE /* MarkTestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6092F9219B3EF90083D6DE /* MarkTestModels.swift */; };
-		8D609300219B3EF90083D6DE /* MarkTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6092FA219B3EF90083D6DE /* MarkTestViewController.swift */; };
-		8D609301219B3EF90083D6DE /* MarkTestInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6092FB219B3EF90083D6DE /* MarkTestInteractor.swift */; };
 		8D609304219C44490083D6DE /* AddUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D609302219C44470083D6DE /* AddUserView.xib */; };
 		8D609305219C44490083D6DE /* AddUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D609303219C44490083D6DE /* AddUserView.swift */; };
 		8D60930D219C86640083D6DE /* JoinSquadPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D609307219C86640083D6DE /* JoinSquadPresenter.swift */; };
@@ -34,8 +28,7 @@
 		8D6B772A2199947B00D99BD9 /* LogOutButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D6B77282199947A00D99BD9 /* LogOutButtonTableViewCell.xib */; };
 		8D6B772B2199947B00D99BD9 /* LogOutButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6B77292199947B00D99BD9 /* LogOutButtonTableViewCell.swift */; };
 		8DA87A392194616400B5747C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA87A382194616400B5747C /* AppDelegate.swift */; };
-		8DA87A3B2194616400B5747C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA87A3A2194616400B5747C /* ViewController.swift */; };
-		8DA87A3E2194616400B5747C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA87A3C2194616400B5747C /* Main.storyboard */; };
+		8DA87A3E2194616400B5747C /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA87A3C2194616400B5747C /* Login.storyboard */; };
 		8DA87A412194616400B5747C /* SampleCS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8DA87A3F2194616400B5747C /* SampleCS.xcdatamodeld */; };
 		8DA87A432194616700B5747C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA87A422194616700B5747C /* Assets.xcassets */; };
 		8DA87A462194616700B5747C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA87A442194616700B5747C /* LaunchScreen.storyboard */; };
@@ -53,6 +46,22 @@
 		8DB0453A219DC15200F41F0E /* TeamSelectionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB04534219DC15200F41F0E /* TeamSelectionModels.swift */; };
 		8DB0453B219DC15200F41F0E /* TeamSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB04535219DC15200F41F0E /* TeamSelectionViewController.swift */; };
 		8DB0453C219DC15200F41F0E /* TeamSelectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB04536219DC15200F41F0E /* TeamSelectionInteractor.swift */; };
+		8DB0453F219EF9FA00F41F0E /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0453D219EF9F700F41F0E /* SectionHeaderView.swift */; };
+		8DB04540219EF9FA00F41F0E /* SectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DB0453E219EF9F800F41F0E /* SectionHeaderView.xib */; };
+		8DB04543219EFABB00F41F0E /* PinEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DB04541219EFAB800F41F0E /* PinEntryView.xib */; };
+		8DB04544219EFABB00F41F0E /* PinEntryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB04542219EFABA00F41F0E /* PinEntryCellView.swift */; };
+		8DB0454821A4597900F41F0E /* TeamSelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DB0454721A4582500F41F0E /* TeamSelection.storyboard */; };
+		8DB0454921A4597900F41F0E /* AddPlayerDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DB0454521A457CF00F41F0E /* AddPlayerDetails.storyboard */; };
+		8DB0454A21A4597900F41F0E /* JoinSquad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DB0454621A457FC00F41F0E /* JoinSquad.storyboard */; };
+		8DB0454E21A45AE500F41F0E /* customSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0454D21A45AE500F41F0E /* customSegue.swift */; };
+		8DB0455D21A4623D00F41F0E /* EditPlayerDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DB0455C21A4623D00F41F0E /* EditPlayerDetails.storyboard */; };
+		8DB0456421A462CC00F41F0E /* EditPlayerDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0455E21A462CC00F41F0E /* EditPlayerDetailsPresenter.swift */; };
+		8DB0456521A462CC00F41F0E /* EditPlayerDetailsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0455F21A462CC00F41F0E /* EditPlayerDetailsWorker.swift */; };
+		8DB0456621A462CC00F41F0E /* EditPlayerDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0456021A462CC00F41F0E /* EditPlayerDetailsRouter.swift */; };
+		8DB0456721A462CC00F41F0E /* EditPlayerDetailsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0456121A462CC00F41F0E /* EditPlayerDetailsModels.swift */; };
+		8DB0456821A462CC00F41F0E /* EditPlayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0456221A462CC00F41F0E /* EditPlayerDetailsViewController.swift */; };
+		8DB0456921A462CC00F41F0E /* EditPlayerDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0456321A462CC00F41F0E /* EditPlayerDetailsInteractor.swift */; };
+		8DB0456B21A46C8500F41F0E /* PlayerInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0456A21A46C8400F41F0E /* PlayerInformationTableViewCell.swift */; };
 		B138A5CA6CB3914A47ECFC68 /* Pods_SampleCSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27F1EE2BD248327662029E0 /* Pods_SampleCSUITests.framework */; };
 		CCD40906B55B17BD16010282 /* Pods_SampleCSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6DB60B6364C0981B7F282D8 /* Pods_SampleCSTests.framework */; };
 /* End PBXBuildFile section */
@@ -88,12 +97,6 @@
 		8D6092EB219B16DF0083D6DE /* AddPlayerDetailsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerDetailsModels.swift; sourceTree = "<group>"; };
 		8D6092EC219B16DF0083D6DE /* AddPlayerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerDetailsViewController.swift; sourceTree = "<group>"; };
 		8D6092ED219B16DF0083D6DE /* AddPlayerDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerDetailsInteractor.swift; sourceTree = "<group>"; };
-		8D6092F6219B3EF90083D6DE /* MarkTestPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkTestPresenter.swift; sourceTree = "<group>"; };
-		8D6092F7219B3EF90083D6DE /* MarkTestWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkTestWorker.swift; sourceTree = "<group>"; };
-		8D6092F8219B3EF90083D6DE /* MarkTestRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkTestRouter.swift; sourceTree = "<group>"; };
-		8D6092F9219B3EF90083D6DE /* MarkTestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkTestModels.swift; sourceTree = "<group>"; };
-		8D6092FA219B3EF90083D6DE /* MarkTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkTestViewController.swift; sourceTree = "<group>"; };
-		8D6092FB219B3EF90083D6DE /* MarkTestInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkTestInteractor.swift; sourceTree = "<group>"; };
 		8D609302219C44470083D6DE /* AddUserView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddUserView.xib; sourceTree = "<group>"; };
 		8D609303219C44490083D6DE /* AddUserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddUserView.swift; sourceTree = "<group>"; };
 		8D609307219C86640083D6DE /* JoinSquadPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSquadPresenter.swift; sourceTree = "<group>"; };
@@ -107,8 +110,7 @@
 		8D6B77292199947B00D99BD9 /* LogOutButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogOutButtonTableViewCell.swift; sourceTree = "<group>"; };
 		8DA87A352194616400B5747C /* SampleCS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleCS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA87A382194616400B5747C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8DA87A3A2194616400B5747C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8DA87A3D2194616400B5747C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8DA87A3D2194616400B5747C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
 		8DA87A402194616400B5747C /* SampleCS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SampleCS.xcdatamodel; sourceTree = "<group>"; };
 		8DA87A422194616700B5747C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DA87A452194616700B5747C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -131,6 +133,22 @@
 		8DB04534219DC15200F41F0E /* TeamSelectionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSelectionModels.swift; sourceTree = "<group>"; };
 		8DB04535219DC15200F41F0E /* TeamSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSelectionViewController.swift; sourceTree = "<group>"; };
 		8DB04536219DC15200F41F0E /* TeamSelectionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamSelectionInteractor.swift; sourceTree = "<group>"; };
+		8DB0453D219EF9F700F41F0E /* SectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		8DB0453E219EF9F800F41F0E /* SectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionHeaderView.xib; sourceTree = "<group>"; };
+		8DB04541219EFAB800F41F0E /* PinEntryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinEntryView.xib; sourceTree = "<group>"; };
+		8DB04542219EFABA00F41F0E /* PinEntryCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinEntryCellView.swift; sourceTree = "<group>"; };
+		8DB0454521A457CF00F41F0E /* AddPlayerDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = AddPlayerDetails.storyboard; path = /Users/adamjohnston/Desktop/SampleCS/Scenes/AddPlayerDetails/AddPlayerDetails.storyboard; sourceTree = "<absolute>"; };
+		8DB0454621A457FC00F41F0E /* JoinSquad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = JoinSquad.storyboard; path = "/Users/adamjohnston/Desktop/SampleCS/Scenes/Join Squad/JoinSquad.storyboard"; sourceTree = "<absolute>"; };
+		8DB0454721A4582500F41F0E /* TeamSelection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = TeamSelection.storyboard; path = /Users/adamjohnston/Desktop/SampleCS/Scenes/TeamSelection/TeamSelection.storyboard; sourceTree = "<absolute>"; };
+		8DB0454D21A45AE500F41F0E /* customSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customSegue.swift; sourceTree = "<group>"; };
+		8DB0455C21A4623D00F41F0E /* EditPlayerDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditPlayerDetails.storyboard; sourceTree = "<group>"; };
+		8DB0455E21A462CC00F41F0E /* EditPlayerDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlayerDetailsPresenter.swift; sourceTree = "<group>"; };
+		8DB0455F21A462CC00F41F0E /* EditPlayerDetailsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlayerDetailsWorker.swift; sourceTree = "<group>"; };
+		8DB0456021A462CC00F41F0E /* EditPlayerDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlayerDetailsRouter.swift; sourceTree = "<group>"; };
+		8DB0456121A462CC00F41F0E /* EditPlayerDetailsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlayerDetailsModels.swift; sourceTree = "<group>"; };
+		8DB0456221A462CC00F41F0E /* EditPlayerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlayerDetailsViewController.swift; sourceTree = "<group>"; };
+		8DB0456321A462CC00F41F0E /* EditPlayerDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlayerDetailsInteractor.swift; sourceTree = "<group>"; };
+		8DB0456A21A46C8400F41F0E /* PlayerInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInformationTableViewCell.swift; sourceTree = "<group>"; };
 		A6DB60B6364C0981B7F282D8 /* Pods_SampleCSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleCSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFD66EB814630E1C1C507F66 /* Pods-SampleCSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleCSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SampleCSTests/Pods-SampleCSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E27F1EE2BD248327662029E0 /* Pods_SampleCSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleCSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +196,7 @@
 		8D6092E6219B162C0083D6DE /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				8DA87A3C2194616400B5747C /* Login.storyboard */,
 				8DA87A692194623A00B5747C /* LoginPresenter.swift */,
 				8DA87A6A2194623A00B5747C /* LoginWorker.swift */,
 				8DA87A6B2194623A00B5747C /* LoginRouter.swift */,
@@ -191,6 +210,8 @@
 		8D6092E7219B164A0083D6DE /* AddPlayerDetails */ = {
 			isa = PBXGroup;
 			children = (
+				8DB0454521A457CF00F41F0E /* AddPlayerDetails.storyboard */,
+				8DB0454D21A45AE500F41F0E /* customSegue.swift */,
 				8D609303219C44490083D6DE /* AddUserView.swift */,
 				8D609302219C44470083D6DE /* AddUserView.xib */,
 				8D6092E8219B16DF0083D6DE /* AddPlayerDetailsPresenter.swift */,
@@ -206,31 +227,19 @@
 		8D6092F4219B3CAB0083D6DE /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				8DB04530219DC12D00F41F0E /* TeamSelection */,
-				8D6092F5219B3EDF0083D6DE /* MarkTest */,
 				8D6092E6219B162C0083D6DE /* Login */,
 				8D6092E7219B164A0083D6DE /* AddPlayerDetails */,
 				8D609306219C863E0083D6DE /* Join Squad */,
+				8DB04530219DC12D00F41F0E /* TeamSelection */,
+				8DB0455B21A4620B00F41F0E /* EditPlayerDetails */,
 			);
 			path = Scenes;
-			sourceTree = "<group>";
-		};
-		8D6092F5219B3EDF0083D6DE /* MarkTest */ = {
-			isa = PBXGroup;
-			children = (
-				8D6092F6219B3EF90083D6DE /* MarkTestPresenter.swift */,
-				8D6092F7219B3EF90083D6DE /* MarkTestWorker.swift */,
-				8D6092F8219B3EF90083D6DE /* MarkTestRouter.swift */,
-				8D6092F9219B3EF90083D6DE /* MarkTestModels.swift */,
-				8D6092FA219B3EF90083D6DE /* MarkTestViewController.swift */,
-				8D6092FB219B3EF90083D6DE /* MarkTestInteractor.swift */,
-			);
-			path = MarkTest;
 			sourceTree = "<group>";
 		};
 		8D609306219C863E0083D6DE /* Join Squad */ = {
 			isa = PBXGroup;
 			children = (
+				8DB0454621A457FC00F41F0E /* JoinSquad.storyboard */,
 				8D609307219C86640083D6DE /* JoinSquadPresenter.swift */,
 				8D609308219C86640083D6DE /* JoinSquadWorker.swift */,
 				8D609309219C86640083D6DE /* JoinSquadRouter.swift */,
@@ -267,13 +276,10 @@
 		8DA87A372194616400B5747C /* SampleCS */ = {
 			isa = PBXGroup;
 			children = (
+				8DB0454C21A459E600F41F0E /* Custom UI Elements */,
+				8DB0454B21A459CD00F41F0E /* Menu */,
 				8D6092E4219B0D9D0083D6DE /* GoogleService-Info.plist */,
-				8D6B77292199947B00D99BD9 /* LogOutButtonTableViewCell.swift */,
-				8D6B77282199947A00D99BD9 /* LogOutButtonTableViewCell.xib */,
-				8D6B77262199944D00D99BD9 /* MenuViewController.swift */,
 				8DA87A382194616400B5747C /* AppDelegate.swift */,
-				8DA87A3A2194616400B5747C /* ViewController.swift */,
-				8DA87A3C2194616400B5747C /* Main.storyboard */,
 				8DA87A422194616700B5747C /* Assets.xcassets */,
 				8DA87A442194616700B5747C /* LaunchScreen.storyboard */,
 				8DA87A472194616700B5747C /* Info.plist */,
@@ -304,6 +310,11 @@
 		8DB04530219DC12D00F41F0E /* TeamSelection */ = {
 			isa = PBXGroup;
 			children = (
+				8DB0454721A4582500F41F0E /* TeamSelection.storyboard */,
+				8DB04542219EFABA00F41F0E /* PinEntryCellView.swift */,
+				8DB04541219EFAB800F41F0E /* PinEntryView.xib */,
+				8DB0453D219EF9F700F41F0E /* SectionHeaderView.swift */,
+				8DB0453E219EF9F800F41F0E /* SectionHeaderView.xib */,
 				8DB04531219DC15200F41F0E /* TeamSelectionPresenter.swift */,
 				8DB04532219DC15200F41F0E /* TeamSelectionWorker.swift */,
 				8DB04533219DC15200F41F0E /* TeamSelectionRouter.swift */,
@@ -312,6 +323,38 @@
 				8DB04536219DC15200F41F0E /* TeamSelectionInteractor.swift */,
 			);
 			path = TeamSelection;
+			sourceTree = "<group>";
+		};
+		8DB0454B21A459CD00F41F0E /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				8D6B77262199944D00D99BD9 /* MenuViewController.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		8DB0454C21A459E600F41F0E /* Custom UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				8D6B77292199947B00D99BD9 /* LogOutButtonTableViewCell.swift */,
+				8D6B77282199947A00D99BD9 /* LogOutButtonTableViewCell.xib */,
+			);
+			path = "Custom UI Elements";
+			sourceTree = "<group>";
+		};
+		8DB0455B21A4620B00F41F0E /* EditPlayerDetails */ = {
+			isa = PBXGroup;
+			children = (
+				8DB0456A21A46C8400F41F0E /* PlayerInformationTableViewCell.swift */,
+				8DB0455C21A4623D00F41F0E /* EditPlayerDetails.storyboard */,
+				8DB0455E21A462CC00F41F0E /* EditPlayerDetailsPresenter.swift */,
+				8DB0455F21A462CC00F41F0E /* EditPlayerDetailsWorker.swift */,
+				8DB0456021A462CC00F41F0E /* EditPlayerDetailsRouter.swift */,
+				8DB0456121A462CC00F41F0E /* EditPlayerDetailsModels.swift */,
+				8DB0456221A462CC00F41F0E /* EditPlayerDetailsViewController.swift */,
+				8DB0456321A462CC00F41F0E /* EditPlayerDetailsInteractor.swift */,
+			);
+			path = EditPlayerDetails;
 			sourceTree = "<group>";
 		};
 		ABF9A903B002BD9AA202D22E /* Pods */ = {
@@ -394,6 +437,9 @@
 		8DA87A2D2194616400B5747C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					1,
+				);
 				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Adam Johnston";
@@ -438,11 +484,17 @@
 			files = (
 				8DA87A462194616700B5747C /* LaunchScreen.storyboard in Resources */,
 				8D6092E3219B06E20083D6DE /* hide.png in Resources */,
+				8DB0454821A4597900F41F0E /* TeamSelection.storyboard in Resources */,
+				8DB0454921A4597900F41F0E /* AddPlayerDetails.storyboard in Resources */,
+				8DB0454A21A4597900F41F0E /* JoinSquad.storyboard in Resources */,
 				8D6092E5219B0D9E0083D6DE /* GoogleService-Info.plist in Resources */,
+				8DB0455D21A4623D00F41F0E /* EditPlayerDetails.storyboard in Resources */,
 				8D609304219C44490083D6DE /* AddUserView.xib in Resources */,
 				8DA87A432194616700B5747C /* Assets.xcassets in Resources */,
-				8DA87A3E2194616400B5747C /* Main.storyboard in Resources */,
+				8DA87A3E2194616400B5747C /* Login.storyboard in Resources */,
 				8D6B772A2199947B00D99BD9 /* LogOutButtonTableViewCell.xib in Resources */,
+				8DB04540219EF9FA00F41F0E /* SectionHeaderView.xib in Resources */,
+				8DB04543219EFABB00F41F0E /* PinEntryView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +668,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DB0456921A462CC00F41F0E /* EditPlayerDetailsInteractor.swift in Sources */,
+				8DB0454E21A45AE500F41F0E /* customSegue.swift in Sources */,
 				8D6092F1219B16DF0083D6DE /* AddPlayerDetailsModels.swift in Sources */,
 				8DB0453A219DC15200F41F0E /* TeamSelectionModels.swift in Sources */,
 				8DA87A702194623A00B5747C /* LoginWorker.swift in Sources */,
@@ -623,33 +677,34 @@
 				8DB04539219DC15200F41F0E /* TeamSelectionRouter.swift in Sources */,
 				8DA87A6F2194623A00B5747C /* LoginPresenter.swift in Sources */,
 				8D6092EF219B16DF0083D6DE /* AddPlayerDetailsWorker.swift in Sources */,
-				8D6092FC219B3EF90083D6DE /* MarkTestPresenter.swift in Sources */,
 				8DB0453C219DC15200F41F0E /* TeamSelectionInteractor.swift in Sources */,
 				8D60930E219C86640083D6DE /* JoinSquadWorker.swift in Sources */,
 				8D609312219C86640083D6DE /* JoinSquadInteractor.swift in Sources */,
-				8D6092FF219B3EF90083D6DE /* MarkTestModels.swift in Sources */,
+				8DB0456521A462CC00F41F0E /* EditPlayerDetailsWorker.swift in Sources */,
+				8DB0456B21A46C8500F41F0E /* PlayerInformationTableViewCell.swift in Sources */,
 				8D6092F0219B16DF0083D6DE /* AddPlayerDetailsRouter.swift in Sources */,
 				8DA87A722194623A00B5747C /* LoginModels.swift in Sources */,
 				8D609310219C86640083D6DE /* JoinSquadModels.swift in Sources */,
+				8DB0456821A462CC00F41F0E /* EditPlayerDetailsViewController.swift in Sources */,
 				8DA87A712194623A00B5747C /* LoginRouter.swift in Sources */,
 				8DA87A732194623A00B5747C /* LoginViewController.swift in Sources */,
 				8D6092EE219B16DF0083D6DE /* AddPlayerDetailsPresenter.swift in Sources */,
 				8D6092F3219B16DF0083D6DE /* AddPlayerDetailsInteractor.swift in Sources */,
 				8D6092F2219B16DF0083D6DE /* AddPlayerDetailsViewController.swift in Sources */,
+				8DB0453F219EF9FA00F41F0E /* SectionHeaderView.swift in Sources */,
+				8DB0456421A462CC00F41F0E /* EditPlayerDetailsPresenter.swift in Sources */,
 				8D60930D219C86640083D6DE /* JoinSquadPresenter.swift in Sources */,
 				8D609311219C86640083D6DE /* JoinSquadViewController.swift in Sources */,
-				8DA87A3B2194616400B5747C /* ViewController.swift in Sources */,
-				8D609300219B3EF90083D6DE /* MarkTestViewController.swift in Sources */,
 				8DB0453B219DC15200F41F0E /* TeamSelectionViewController.swift in Sources */,
 				8D6B772B2199947B00D99BD9 /* LogOutButtonTableViewCell.swift in Sources */,
-				8D609301219B3EF90083D6DE /* MarkTestInteractor.swift in Sources */,
-				8D6092FE219B3EF90083D6DE /* MarkTestRouter.swift in Sources */,
-				8D6092FD219B3EF90083D6DE /* MarkTestWorker.swift in Sources */,
+				8DB0456621A462CC00F41F0E /* EditPlayerDetailsRouter.swift in Sources */,
 				8D60930F219C86640083D6DE /* JoinSquadRouter.swift in Sources */,
 				8DA87A392194616400B5747C /* AppDelegate.swift in Sources */,
+				8DB0456721A462CC00F41F0E /* EditPlayerDetailsModels.swift in Sources */,
 				8DB04538219DC15200F41F0E /* TeamSelectionWorker.swift in Sources */,
 				8DA87A412194616400B5747C /* SampleCS.xcdatamodeld in Sources */,
 				8DA87A742194623A00B5747C /* LoginInteractor.swift in Sources */,
+				8DB04544219EFABB00F41F0E /* PinEntryCellView.swift in Sources */,
 				8D609305219C44490083D6DE /* AddUserView.swift in Sources */,
 				8DB04537219DC15200F41F0E /* TeamSelectionPresenter.swift in Sources */,
 			);
@@ -687,12 +742,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8DA87A3C2194616400B5747C /* Main.storyboard */ = {
+		8DA87A3C2194616400B5747C /* Login.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				8DA87A3D2194616400B5747C /* Base */,
 			);
-			name = Main.storyboard;
+			name = Login.storyboard;
 			sourceTree = "<group>";
 		};
 		8DA87A442194616700B5747C /* LaunchScreen.storyboard */ = {

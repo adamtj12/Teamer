@@ -14,9 +14,7 @@ import UIKit
 
 protocol TeamSelectionPresentationLogic
 {
-  func presentSomething(response: TeamSelection.Something.TeamResponse)
-  func displayTeamData(showing: NSDictionary)
-
+  func displayTeamData(showing: NSMutableArray)
 }
 
 class TeamSelectionPresenter: TeamSelectionPresentationLogic
@@ -25,14 +23,23 @@ class TeamSelectionPresenter: TeamSelectionPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: TeamSelection.Something.TeamResponse)
-  {
-    let viewModel = TeamSelection.Something.TeamResponse()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+  func displayTeamData(showing: NSMutableArray){
     
-  func displayTeamData(showing: NSDictionary){
-    
-    
-  }
+    let playerTeamA = TeamSelection.Something.PlayerModel()
+    let playerTeamB = TeamSelection.Something.PlayerModel()
+    let playerModel = TeamSelection.Something.TeamResponse(playerA: playerTeamA, playerB: playerTeamB, groupArrayA: [], groupArrayB: [])
+
+    for i in 0...showing.count-1{
+        let dict : NSDictionary = showing.object(at: i) as! NSDictionary
+        if((dict.object(forKey: "teamOption") as! String) == "Team A"){
+            let playerTeamA = TeamSelection.Something.PlayerModel.init(firstName: dict.object(forKey: "firstName") as! String, lastName: dict.object(forKey: "lastName") as! String, email: dict.object(forKey: "email") as! String, userRating: dict.object(forKey: "userRating") as! NSNumber, teamOption: dict.object(forKey: "teamOption") as! String, numOfValues: 0, id: dict.object(forKey: "id") as! String, userId: dict.object(forKey: "Userid") as! String, teamCaptain: dict.object(forKey: "teamCaptain") as! Bool, groupID: dict.object(forKey: "groupId") as! String, groupName: dict.object(forKey: "groupName") as! String)
+            playerModel.groupArrayA.add(playerTeamA)
+        }
+        else{
+            let playerTeamB = TeamSelection.Something.PlayerModel.init(firstName: dict.object(forKey: "firstName") as! String, lastName: dict.object(forKey: "lastName") as! String, email: dict.object(forKey: "email") as! String, userRating: dict.object(forKey: "userRating") as! NSNumber, teamOption: dict.object(forKey: "teamOption") as! String, numOfValues: 0, id: dict.object(forKey: "id") as! String, userId: dict.object(forKey: "Userid") as! String, teamCaptain: dict.object(forKey: "teamCaptain") as! Bool, groupID: dict.object(forKey: "groupId") as! String, groupName: dict.object(forKey: "groupName") as! String)
+            playerModel.groupArrayB.add(playerTeamB)
+        }
+    }
+    viewController?.displayPlayerInformation(playerModel: playerModel)
+}
 }

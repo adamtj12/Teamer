@@ -14,8 +14,8 @@ import UIKit
 
 protocol TeamSelectionBusinessLogic
 {
-  func doSomething(request: TeamSelection.Something.TeamRequest, currentInteractor: TeamSelectionInteractor)
-  func teamResonseSuccess(result: NSDictionary)
+  func performTeamRequest(request: TeamSelection.Something.TeamRequest, currentInteractor: TeamSelectionInteractor)
+  func teamResonseSuccess(result: NSMutableArray)
 }
 
 protocol TeamSelectionDataStore
@@ -30,16 +30,14 @@ class TeamSelectionInteractor: TeamSelectionBusinessLogic, TeamSelectionDataStor
   //var name: String = ""
   // MARK: Do something
   
-  func doSomething(request: TeamSelection.Something.TeamRequest, currentInteractor: TeamSelectionInteractor)
+  func performTeamRequest(request: TeamSelection.Something.TeamRequest, currentInteractor: TeamSelectionInteractor)
   {
     worker = TeamSelectionWorker()
     worker?.doSomeWork(teamRequest: request, currentInteractor: currentInteractor)
     
-    let response = TeamSelection.Something.TeamResponse()
-    presenter?.presentSomething(response: response)
   }
     
-    func teamResonseSuccess(result: NSDictionary){
+  func teamResonseSuccess(result: NSMutableArray){
         presenter?.displayTeamData(showing: result)
-    }
+  }
 }

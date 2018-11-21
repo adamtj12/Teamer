@@ -22,21 +22,20 @@ class TeamSelectionWorker
     
     func doSomeWork(teamRequest: TeamSelection.Something.TeamRequest, currentInteractor: TeamSelectionInteractor)
     {
-        var dict : NSDictionary = NSDictionary.init()
+        let localArray : NSMutableArray = []
+
         let queue = DispatchQueue(label: "com.app.queue")
         queue.sync {
-            
             self.db.collection("users").whereField("groupId", isEqualTo: teamRequest.groupID)
                 .getDocuments() { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")
                     } else {
-                        let queue = DispatchQueue(label: "com.app.queue")
                         for document in querySnapshot!.documents {
                             print("\(document.documentID) => \(document.data())")
-                            dict = document.data() as NSDictionary
+                            localArray.add(document.data() as NSDictionary)
                         }
-                        self.interactor?.teamResonseSuccess(result: dict)
+                        currentInteractor.teamResonseSuccess(result: localArray)
                     }}
         }
     }

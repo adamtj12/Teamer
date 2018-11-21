@@ -37,9 +37,7 @@ class LoginRouter: NSObject, LoginRoutingLogic, LoginDataPassing
         viewController?.performSegue(withIdentifier: "addPlayerInformation", sender: nil)
     }
     
-    
     //MARK: Navigation
-    
     func navigateToSomewhere(source: LoginViewController, destination: AddPlayerDetailsViewController){
         source.show(destination, sender: nil)
     }

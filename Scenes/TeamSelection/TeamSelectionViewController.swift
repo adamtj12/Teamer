@@ -17,7 +17,7 @@ import IQKeyboardManagerSwift
 
 protocol TeamSelectionDisplayLogic: class
 {
-  func displaySomething(viewModel: TeamSelection.Something.TeamResponse)
+  func displayPlayerInformation(playerModel: TeamSelection.Something.TeamResponse)
 }
 
 class TeamSelectionViewController: UIViewController, TeamSelectionDisplayLogic
@@ -28,8 +28,17 @@ class TeamSelectionViewController: UIViewController, TeamSelectionDisplayLogic
   @IBOutlet weak var addPlayerCollection: UICollectionView!
   @IBOutlet weak var unassignedButton: UIBarButtonItem!
   @IBOutlet weak var addUserView: AddUserView!
-
+  
+  var alreadySetUp : Bool!
+  var flowLayout : UICollectionViewFlowLayout!
+  var pinCellWidth : CGFloat!
+  let screenSize: CGRect = UIScreen.main.bounds
+  var viewModel : TeamSelection.Something.TeamResponse?
   var groupID : NSString = ""
+  var selectedPlayer = TeamSelection.Something.PlayerModel()
+
+
+  var showingUnassigned : Bool!
 
   // MARK: Object lifecycle
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -65,10 +74,19 @@ class TeamSelectionViewController: UIViewController, TeamSelectionDisplayLogic
   override func prepare(for segue: UIStoryboardSegue, sender: Any?)
   {
     if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+        let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+        if let destinationVC = segue.destination as? EditPlayerDetailsViewController {
+            destinationVC.router?.player.firstName = selectedPlayer.firstName
+            destinationVC.router?.player.lastName = selectedPlayer.lastName
+            destinationVC.router?.player.email = selectedPlayer.email
+            destinationVC.router?.player.userRating = selectedPlayer.userRating
+            destinationVC.router?.player.teamOption = selectedPlayer.teamOption
+            destinationVC.router?.player.id = selectedPlayer.id
+            destinationVC.router?.player.userId = selectedPlayer.userId
+            destinationVC.router?.player.teamCaptain = selectedPlayer.teamCaptain
+            destinationVC.router?.player.groupID = selectedPlayer.groupID
+            destinationVC.router?.player.groupName = selectedPlayer.groupName
+        }
     }
   }
   
@@ -88,11 +106,154 @@ class TeamSelectionViewController: UIViewController, TeamSelectionDisplayLogic
   {
     var request = TeamSelection.Something.TeamRequest()
     request.groupID = (router?.groupID)!
-    interactor?.doSomething(request: request, currentInteractor: interactor as! TeamSelectionInteractor)
+    interactor?.performTeamRequest(request: request, currentInteractor: interactor as! TeamSelectionInteractor)
   }
   
-  func displaySomething(viewModel: TeamSelection.Something.TeamResponse)
+  func displayPlayerInformation(playerModel: TeamSelection.Something.TeamResponse)
   {
-    //nameTextField.text = viewModel.name
+    self.setUpCollectionView(self.screenSize)
+    viewModel = playerModel
   }
+    
+  func setUpCollectionView(_ size: CGRect) {
+        pinCellWidth = size.width
+        flowLayout = UICollectionViewFlowLayout()
+        addPlayerCollection.delegate = self
+        addPlayerCollection.dataSource = self
+        addPlayerCollection.collectionViewLayout = flowLayout
+        self.setCollectionViewSizeForDevice()
+        alreadySetUp = true
+    }
+    
+    func setCollectionViewSizeForDevice() {
+        addPlayerCollection.frame = CGRect(x: addPlayerCollection.frame.origin.x, y: addPlayerCollection.frame.origin.y, width: pinCellWidth, height: addPlayerCollection.frame.height)
+    }
+
+}
+
+
+extension TeamSelectionViewController : UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 95, height: 89
+        )
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        return CGSize(width: collectionView.bounds.width, height: 35)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if(indexPath.section == 0)
+        {
+            let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeaderView", for: indexPath) as! SectionHeaderView
+            reusableview.teamNameLabel.text = "Team A"
+            //do other header related calls or settups
+            return reusableview
+        }
+        else if(indexPath.section == 1)
+        {
+            let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeaderView", for: indexPath) as! SectionHeaderView
+            reusableview.teamNameLabel.text = "Team B"
+            //do other header related calls or settups
+            return reusableview
+        }
+        else
+        {
+            let reusableview = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeaderView", for: indexPath) as! SectionHeaderView
+            reusableview.teamNameLabel.text = "Unassigned"
+            //do other header related calls or settups
+            return reusableview
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+    }
+    
+    // tell the collection view how many cells to make
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if(section == 0){
+            return (viewModel?.groupArrayA.count)!
+        }
+        if(section == 1){
+            return (viewModel?.groupArrayB.count)!
+        }
+        return 1
+    }
+}
+
+extension TeamSelectionViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath as IndexPath) as! PinEntryCellView
+        
+        cell.layer.cornerRadius = 42.0
+        cell.layer.masksToBounds = true
+        //or
+        cell.layer.cornerRadius = cell.frame.width / 2
+        cell.clipsToBounds = true
+        
+        if(indexPath.section == 0){
+            self.setUpCollectionViewWithModel(model: viewModel!, cell: cell, path: indexPath as NSIndexPath)
+            return cell
+        }
+        if(indexPath.section == 1){
+            self.setUpCollectionViewWithModel(model: viewModel!, cell: cell, path: indexPath as NSIndexPath)
+            return cell
+        }
+        if(indexPath.section == 2){
+            self.setUpCollectionViewWithModel(model: viewModel!, cell: cell, path: indexPath as NSIndexPath)
+            return cell
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(indexPath.section == 0){
+            selectedPlayer = (viewModel?.groupArrayA.object(at: indexPath.row) as? TeamSelection.Something.PlayerModel)!}
+        else if(indexPath.section == 1){
+            selectedPlayer = (viewModel?.groupArrayA.object(at: indexPath.row) as? TeamSelection.Something.PlayerModel)!
+        }
+        
+        router?.routeToPlayerInfo()
+        
+        //        else{
+//            selectedPlayer = self.teamArrayUnassigned.object(at: indexPath.row) as? PlayerDetails.PlayerModel}
+//        performSegue(withIdentifier: "playerInformationSegue", sender: nil)
+}
+    
+    func setUpCollectionViewWithModel(model : TeamSelection.Something.TeamResponse, cell: PinEntryCellView, path: NSIndexPath)
+    {
+        cell.nameLabel.tag = path.row // Assign tag so we can use it in the button action method
+        
+        var player : TeamSelection.Something.PlayerModel
+        if(path.section == 0){
+            player =  viewModel?.groupArrayA.object(at: path.row) as! TeamSelection.Something.PlayerModel
+        }else{
+            player =  viewModel?.groupArrayB.object(at: path.row) as! TeamSelection.Something.PlayerModel
+        }
+        
+        let userRating = player.userRating as! Float
+        let captain = player.teamCaptain
+        cell.nameLabel.text = player.firstName
+        cell.ratingLabel.text  = String(format: "%@:%@", "Rating: ", String(userRating))
+        if(captain == true){
+            cell.backgroundColor = UIColor.red
+            cell.nameLabel.text = String(format: "%@:\n%@", "(C)", player.firstName)
+        }
+        else
+        {
+            cell.backgroundColor = UIColor.black
+        }
+    }
 }
