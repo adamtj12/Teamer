@@ -21,19 +21,18 @@ class JoinSquadWorker
     
     func getDocuments(currentInteractor: JoinSquadInteractor) {
         let queue = DispatchQueue(label: "com.app.queue")
-        var localArray : NSMutableArray = []
-        
+        let localArray : NSMutableArray = []
         queue.sync {
             self.db.collection("groups").getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
-                    let queue = DispatchQueue(label: "com.app.queue")
                     for document in querySnapshot!.documents {
                         print("\(document.documentID) => \(document.data())")
                         localArray.add(document.data() as NSDictionary)
+                        // count team a and team b here
                     }
-                    let request = JoinSquad.Something.ResponseGroups(groupArray: localArray)
+                    let request = JoinSquad.Something.ResponseGroups(groupArray: localArray, teamACount: 0, teamBCount: 0, teamUnassignedCount: 0)
                     currentInteractor.ReturnGroups(result: request, currentInteractor: currentInteractor)
                 }
             }
@@ -49,14 +48,66 @@ class JoinSquadWorker
                     var i = 0
                     for document in querySnapshot!.documents {
                         i+=1
+                        let dict : NSDictionary = document.data() as NSDictionary
                         print("\(document.documentID) => \(document.data())")
                         self.db.collection("users").document(document.documentID).updateData([
                             "groupName": details.selectedGroup.object(forKey: "groupName") as! String,
-                            "groupId" : details.selectedGroup.object(forKey: "groupID") as! String
+                            "groupID" : details.selectedGroup.object(forKey: "groupID") as! String
                             ])
                     }
                     currentInteractor.successfulGroupAddition(currentInteractor: currentInteractor)
                 }
         }
     }
+    
+    
+    func countCurrentPlayers(details: JoinSquad.Something.RequestToAdd ,currentInteractor: JoinSquadInteractor) {
+        let queue = DispatchQueue(label: "com.app.queue")
+        var model = JoinSquad.Something.ResponseGroups.init(groupArray: [], teamACount: 0, teamBCount: 0, teamUnassignedCount: 0)
+//        let localArray : NSMutableArray = []
+//        var teamCounterA : Int = 0, teamCounterB : Int = 0
+            self.db.collection("users").whereField("groupID", isEqualTo: details.selectedGroup.object(forKey: "groupID")).getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        print("\(document.documentID) => \(document.data())")
+                        let dict : NSDictionary = document.data() as NSDictionary
+                        if(dict.value(forKey: "teamOption") as! String == "Team A"){
+                            model.teamACount+=1
+                        }
+                        else if(dict.value(forKey: "teamOption") as! String == "Team B"){
+                            model.teamBCount+=1
+                        } else{
+                            model.teamUnassignedCount+=1
+                        }
+                        // count team a and team b here
+                    }
+                    currentInteractor.successfulCount(response: model, currentInteractor: currentInteractor)
+                }
+            }
+    }
+    
+    func updateCurrentPlayerTeam(player: JoinSquad.Something.PlayerModel, currentInteractor: JoinSquadInteractor)
+    {
+        // call action to update fields.
+        let queue = DispatchQueue(label: "com.app.queue")
+        queue.sync {
+            db.collection("users").whereField("Userid", isEqualTo: player.userId)
+                .getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            print("\(document.documentID) => \(document.data())")
+                            self.db.collection("users").document(document.documentID).updateData([
+                                "teamOption" : player.teamOption
+                                ])
+                        }
+                        currentInteractor.playerUpdatedSuccess(currentInteractor: currentInteractor)
+                    }
+            }
+        }
+    }
+
 }

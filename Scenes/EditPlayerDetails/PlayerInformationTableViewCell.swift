@@ -18,6 +18,14 @@ class PlayerInformationTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.teamSelectionDropDown.optionArray = ["Team A", "Team B", "Unassigned"]
+        self.teamSelectionDropDown.optionIds = [1,23,54,22]
+        self.teamSelectionDropDown.didSelect{(selectedText , index ,id) in
+        }
+        self.teamSelectionDropDown.inputView = UIView()
+        
+
         // Initialization code
     }
 

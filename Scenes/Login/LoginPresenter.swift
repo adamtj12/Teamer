@@ -18,6 +18,8 @@ protocol LoginPresentationLogic
     func displayAddedUserScreen(showing: AuthDataResult)
     func displayLoggedInUserScreen(showing: AuthDataResult)
     func displayLoggedInUserScreenFacebook()
+    func returnGroupID(groupID: String)
+
 }
 
 class LoginPresenter: LoginPresentationLogic
@@ -54,7 +56,10 @@ class LoginPresenter: LoginPresentationLogic
     
     func displayLoggedInUserScreenFacebook()
     {
-        //      viewController?.loginPlayer(show: showing)
+//        viewController?.loginPlayer(show: showing)
     }
     
+    func returnGroupID(groupID: String) {
+        viewController?.returnedGroupID(groupID: groupID)
+    }
 }

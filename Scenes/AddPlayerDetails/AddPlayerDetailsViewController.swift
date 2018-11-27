@@ -23,11 +23,11 @@ class AddPlayerDetailsViewController: UIViewController, AddPlayerDetailsDisplayL
     var interactor: AddPlayerDetailsBusinessLogic?
     var router: (NSObjectProtocol & AddPlayerDetailsRoutingLogic & AddPlayerDetailsDataPassing)?
     var uid : String?
+    var playerDetails = AddPlayerDetails.Something.PlayerModel()
     
     @IBOutlet weak var addUserView: AddUserView!
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -41,7 +41,6 @@ class AddPlayerDetailsViewController: UIViewController, AddPlayerDetailsDisplayL
     }
     
     // MARK: Setup
-    
     private func setup()
     {
         let viewController = self
@@ -63,7 +62,13 @@ class AddPlayerDetailsViewController: UIViewController, AddPlayerDetailsDisplayL
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
             if let destinationVC = segue.destination as? JoinSquadViewController {
-                destinationVC.router?.playerDetails = uid!
+                destinationVC.router?.playerDetails.firstName = playerDetails.firstName
+                destinationVC.router?.playerDetails.lastName = playerDetails.lastName
+                destinationVC.router?.playerDetails.email = playerDetails.email
+                destinationVC.router?.playerDetails.userRating = playerDetails.userRating
+                destinationVC.router?.playerDetails.teamOption = playerDetails.teamOption
+                destinationVC.router?.playerDetails.userId = playerDetails.userId
+
             }
         }
     }
@@ -112,6 +117,7 @@ class AddPlayerDetailsViewController: UIViewController, AddPlayerDetailsDisplayL
     func addedPlayerDetails(showing: AddPlayerDetails.Something.PlayerModel) {
         print("CLEAN SWIFT WORKED")
         uid = showing.userId
+        playerDetails = showing
         router?.routeToSomewhere()
     }
 }

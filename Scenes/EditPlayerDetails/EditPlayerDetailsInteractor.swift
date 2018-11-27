@@ -14,7 +14,10 @@ import UIKit
 
 protocol EditPlayerDetailsBusinessLogic
 {
-  func doSomething(request: EditPlayerDetails.Something.Request)
+  func doSomething(request: EditPlayerDetails.Something.PlayerModel, currentInteractor: EditPlayerDetailsInteractor)
+  func playerUpdatedSuccess(player: EditPlayerDetails.Something.PlayerModel, currentInteractor: EditPlayerDetailsInteractor)
+  func countUsersInTeam(request: EditPlayerDetails.Something.PlayerModel, currentInteractor: EditPlayerDetailsInteractor)
+  func successfulCount(response: EditPlayerDetails.Something.ResponseGroups, currentInteractor: EditPlayerDetailsInteractor)
 }
 
 protocol EditPlayerDetailsDataStore
@@ -30,12 +33,24 @@ class EditPlayerDetailsInteractor: EditPlayerDetailsBusinessLogic, EditPlayerDet
   
   // MARK: Do something
   
-  func doSomething(request: EditPlayerDetails.Something.Request)
+  func doSomething(request: EditPlayerDetails.Something.PlayerModel, currentInteractor: EditPlayerDetailsInteractor)
   {
     worker = EditPlayerDetailsWorker()
-    worker?.doSomeWork()
-    
-    let response = EditPlayerDetails.Something.Response()
-    presenter?.presentSomething(response: response)
+    worker?.doSomeWork(player: request, currentInteractor: currentInteractor)
   }
+    
+    func playerUpdatedSuccess(player: EditPlayerDetails.Something.PlayerModel, currentInteractor: EditPlayerDetailsInteractor) {
+        presenter?.presentSomething(player : player)
+    }
+    
+    func countUsersInTeam(request: EditPlayerDetails.Something.PlayerModel, currentInteractor: EditPlayerDetailsInteractor) {
+        worker = EditPlayerDetailsWorker()
+        worker?.countCurrentPlayers(details: request, currentInteractor: currentInteractor)
+    }
+    
+    func successfulCount(response: EditPlayerDetails.Something.ResponseGroups, currentInteractor: EditPlayerDetailsInteractor) {
+        presenter?.successfulPlayerCount(response: response)
+    }
+
+
 }

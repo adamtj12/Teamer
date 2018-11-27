@@ -39,7 +39,7 @@ enum AddPlayerDetails
         {
         }
         
-        struct PlayerModel
+        class PlayerModel : NSObject
         {
             var firstName = String()
             var lastName = String()

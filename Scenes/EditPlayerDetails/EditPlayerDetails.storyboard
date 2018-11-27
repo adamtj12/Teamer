@@ -73,7 +73,7 @@
                     <navigationItem key="navigationItem" title="Players in squad" id="Vko-BF-NfW">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="VrP-uy-amj">
                             <connections>
-                                <action selector="editPlayerPressed:" destination="dfe-iH-Isv" id="Wg7-4i-qQb"/>
+                                <action selector="editPlayerPressed:" destination="dfe-iH-Isv" id="No2-I7-uPS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

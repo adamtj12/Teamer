@@ -123,7 +123,8 @@ class MenuViewController: UIViewController,  FBSDKLoginButtonDelegate {
         } catch let signOutError as NSError {
             print ("Error signing out: %@", signOutError)
         }
-        
+        let button : UIButton = sender as! UIButton
+        button.setTitle("Login", for: UIControl.State.normal)
     }
 }
 

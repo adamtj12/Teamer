@@ -14,7 +14,8 @@ import UIKit
 
 protocol EditPlayerDetailsPresentationLogic
 {
-  func presentSomething(response: EditPlayerDetails.Something.Response)
+  func presentSomething(player: EditPlayerDetails.Something.PlayerModel)
+  func successfulPlayerCount(response: EditPlayerDetails.Something.ResponseGroups)
 }
 
 class EditPlayerDetailsPresenter: EditPlayerDetailsPresentationLogic
@@ -23,9 +24,12 @@ class EditPlayerDetailsPresenter: EditPlayerDetailsPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: EditPlayerDetails.Something.Response)
+  func presentSomething(player: EditPlayerDetails.Something.PlayerModel)
   {
-    let viewModel = EditPlayerDetails.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    viewController?.displaySomething(player: player)
   }
+    
+    func successfulPlayerCount(response: EditPlayerDetails.Something.ResponseGroups) {
+        viewController?.successfulTeamCount(response: response)
+    }
 }

@@ -11,10 +11,65 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
 
 class EditPlayerDetailsWorker
 {
-  func doSomeWork()
-  {
-  }
+    let db = Firestore.firestore()
+
+    func doSomeWork(player: EditPlayerDetails.Something.PlayerModel, currentInteractor: EditPlayerDetailsInteractor)
+    {
+                // call action to update fields.
+                let queue = DispatchQueue(label: "com.app.queue")
+                queue.sync {
+                    db.collection("users").whereField("id", isEqualTo: player.id)
+                        .getDocuments() { (querySnapshot, err) in
+                            if let err = err {
+                                print("Error getting documents: \(err)")
+                            } else {
+                                for document in querySnapshot!.documents {
+                                    print("\(document.documentID) => \(document.data())")
+                                    self.db.collection("users").document(document.documentID).updateData([
+                                        "firstName": player.firstName,
+                                        "lastName" : player.lastName,
+                                        "email" : player.email,
+                                        "userRating" : player.userRating,
+                                        "teamOption" : player.teamOption
+                                        ])
+                                }
+                                currentInteractor.playerUpdatedSuccess(player: player, currentInteractor: currentInteractor)
+                            }
+                    }
+                }
+        }
+    
+    func countCurrentPlayers(details: EditPlayerDetails.Something.PlayerModel ,currentInteractor: EditPlayerDetailsInteractor) {
+        let queue = DispatchQueue(label: "com.app.queue")
+        var model = EditPlayerDetails.Something.ResponseGroups.init(groupArray: [], teamACount: 0, teamBCount: 0, teamUnassignedCount: 0)
+        //        let localArray : NSMutableArray = []
+        //        var teamCounterA : Int = 0, teamCounterB : Int = 0
+        self.db.collection("users").whereField("groupID", isEqualTo: details.groupID).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    let dict : NSDictionary = document.data() as NSDictionary
+                    if(dict.value(forKey: "teamOption") as! String == "Team A"){
+                        model.teamACount+=1
+                    }
+                    else if(dict.value(forKey: "teamOption") as! String == "Team B"){
+                        model.teamBCount+=1
+                    } else{
+                        model.teamUnassignedCount+=1
+                    }
+                    // count team a and team b here
+                }
+                currentInteractor.successfulCount(response: model, currentInteractor: currentInteractor)
+            }
+        }
+    }
+
 }
+

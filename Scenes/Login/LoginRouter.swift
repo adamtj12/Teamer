@@ -16,6 +16,7 @@ import UIKit
 {
     func routeToSomewhere()
     func routeToAddPlayerInfo()
+    func routeToTeamSelection()
 }
 
 protocol LoginDataPassing
@@ -36,6 +37,11 @@ class LoginRouter: NSObject, LoginRoutingLogic, LoginDataPassing
     func routeToAddPlayerInfo() {
         viewController?.performSegue(withIdentifier: "addPlayerInformation", sender: nil)
     }
+    
+    func routeToTeamSelection() {
+        viewController?.performSegue(withIdentifier: "teamViewer", sender: nil)
+    }
+    
     
     //MARK: Navigation
     func navigateToSomewhere(source: LoginViewController, destination: AddPlayerDetailsViewController){

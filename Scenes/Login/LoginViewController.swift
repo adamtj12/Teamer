@@ -19,6 +19,7 @@ protocol LoginDisplayLogic: class
     func toggleAddUserView(show: Login.Something.AddUserToggleScreen)
     func addPlayer(show: Login.Something.PlayerModel)
     func loginPlayer(show: Login.Something.PlayerModel)
+    func returnedGroupID(groupID: String)
 }
 
 class LoginViewController: UIViewController, LoginDisplayLogic
@@ -26,6 +27,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     var interactor: LoginBusinessLogic?
     var router: (NSObjectProtocol & LoginRoutingLogic & LoginDataPassing)?
     var uid : String?
+    var groupID : String?
     
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -73,7 +75,11 @@ class LoginViewController: UIViewController, LoginDisplayLogic
                 let array : Array<String> = [self.registerUserField.text!, uid!]
                 destinationVC.router?.loginDetails = array
             }
-            //                router.perform(selector, with: segue)
+            else {
+                if let destinationVC = segue.destination as? TeamSelectionViewController {
+                    destinationVC.router?.groupID = self.groupID!
+                }
+            }
         }
     }
     
@@ -112,7 +118,13 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     
     func loginPlayer(show: Login.Something.PlayerModel) {
         print("CLEAN SWIFT WORKING !!!!!!!!")
-        router?.routeToAddPlayerInfo()
+        interactor?.getGroupToDisplayFromUser(add: show, currentInteractor: interactor as! LoginInteractor)
+       // router?.routeToAddPlayerInfo()
+    }
+    
+    func returnedGroupID(groupID: String) {
+        self.groupID = groupID
+        router?.routeToTeamSelection()
     }
     
     @IBAction func loginFacebookPressed(_ sender: Any) {

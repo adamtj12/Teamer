@@ -17,7 +17,12 @@ protocol JoinSquadBusinessLogic
     func getGroups(request: JoinSquad.Something.Request, currentInteractor: JoinSquadInteractor)
     func ReturnGroups(result: JoinSquad.Something.ResponseGroups, currentInteractor: JoinSquadInteractor)
     func addUserToGroup(request: JoinSquad.Something.RequestToAdd, currentInteractor: JoinSquadInteractor)
+    func countUsersInTeam(request: JoinSquad.Something.RequestToAdd, currentInteractor: JoinSquadInteractor)
     func successfulGroupAddition(currentInteractor: JoinSquadInteractor)
+    func successfulCount(response: JoinSquad.Something.ResponseGroups, currentInteractor: JoinSquadInteractor)
+    func playerUpdatedSuccess(currentInteractor: JoinSquadInteractor)
+    func playerUpdate(request: JoinSquad.Something.PlayerModel, currentInteractor: JoinSquadInteractor)
+
 }
 
 protocol JoinSquadDataStore
@@ -27,6 +32,7 @@ protocol JoinSquadDataStore
 
 class JoinSquadInteractor: JoinSquadBusinessLogic, JoinSquadDataStore
 {
+    
     var presenter: JoinSquadPresentationLogic?
     var worker: JoinSquadWorker?
     //var name: String = ""
@@ -49,4 +55,23 @@ class JoinSquadInteractor: JoinSquadBusinessLogic, JoinSquadDataStore
     func successfulGroupAddition(currentInteractor: JoinSquadInteractor) {
         presenter?.successfulPlayerAdd()
     }
+    
+    func countUsersInTeam(request: JoinSquad.Something.RequestToAdd, currentInteractor: JoinSquadInteractor) {
+        worker = JoinSquadWorker()
+        worker?.countCurrentPlayers(details: request, currentInteractor: currentInteractor)
+    }
+    
+    func successfulCount(response: JoinSquad.Something.ResponseGroups, currentInteractor: JoinSquadInteractor) {
+        presenter?.successfulPlayerCount(response: response)
+    }
+    
+    func playerUpdatedSuccess(currentInteractor: JoinSquadInteractor) {
+        presenter?.presentUpdateTeam()
+    }
+    
+    func playerUpdate(request: JoinSquad.Something.PlayerModel, currentInteractor: JoinSquadInteractor) {
+        worker = JoinSquadWorker()
+        worker?.updateCurrentPlayerTeam(player: request, currentInteractor: currentInteractor)
+    }
+
 }

@@ -26,7 +26,7 @@ class AddUserView: UIView {
         super.awakeFromNib()
         //custom logic goes here
         
-        self.teamSelectionDropDown.optionArray = ["Team A", "Team B"]
+        self.teamSelectionDropDown.optionArray = ["Team A", "Team B", "Unassigned"]
         self.teamSelectionDropDown.optionIds = [1,23,54,22]
         self.teamSelectionDropDown.didSelect{(selectedText , index ,id) in
         }

@@ -27,7 +27,8 @@ protocol LoginBusinessLogic
     func loginSuccessful(result: AuthDataResult)
     func loginToFirebaseFacebook(loginButton: FBSDKLoginButton, currentInteractor: LoginInteractor)
     func loginSuccessfulFacebook(add: Login.Something.PlayerModel)
-    
+    func getGroupToDisplayFromUser(add: Login.Something.PlayerModel, currentInteractor: LoginInteractor)
+
 }
 
 protocol LoginDataStore
@@ -108,4 +109,14 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
     func loginSuccessfulFacebook(add: Login.Something.PlayerModel) {
     }
     
+    func getGroupToDisplayFromUser(add: Login.Something.PlayerModel, currentInteractor: LoginInteractor)
+    {
+        worker = LoginWorker()
+        self.worker?.getGroupIDFromUserID(details: add, currentInteractor: currentInteractor)
+    }
+    
+    func successfulGroupRetrieve(group: String, currentInteractor: LoginInteractor)
+    {
+        presenter?.returnGroupID(groupID: group)
+    }
 }

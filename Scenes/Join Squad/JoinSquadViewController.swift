@@ -17,19 +17,25 @@ import FirebaseFirestore
 
 protocol JoinSquadDisplayLogic: class
 {
-    func displaySomething(response: JoinSquad.Something.GroupModel)
+    func displaySomething(response: JoinSquad.Something.GroupModel, teamCountA : Int, teamCountB: Int)
     var groupModel : JoinSquad.Something.GroupModel? {get set}
     func successfulTeamJoin()
+    func successfulTeamCount(response: JoinSquad.Something.ResponseGroups)
+    func setToUnassignedIfTeamsFull()
 }
 
 class JoinSquadViewController: UITableViewController, JoinSquadDisplayLogic
 {
     var groupModel: JoinSquad.Something.GroupModel?
+    var groupResponse: JoinSquad.Something.ResponseGroups?
     var interactor: JoinSquadBusinessLogic?
     var router: (NSObjectProtocol & JoinSquadRoutingLogic & JoinSquadDataPassing)?
     let db = Firestore.firestore()
     var groupOptions : NSMutableArray = []
     var groupID : String = ""
+    var teamCounterA : Int = 0, teamCounterB : Int = 0, teamCounterUnAssigned : Int = 0
+    var userDetails = JoinSquad.Something.RequestToAdd()
+
     
     // MARK: Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
@@ -75,6 +81,7 @@ class JoinSquadViewController: UITableViewController, JoinSquadDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
         getGroups()
     }
     
@@ -106,11 +113,13 @@ class JoinSquadViewController: UITableViewController, JoinSquadDisplayLogic
         // add the actions (buttons)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { action in
             print("Click of default button")
-            var userDetails = JoinSquad.Something.RequestToAdd()
-            userDetails.selectedGroup = (self.groupModel?.groupArray)?.object(at: indexPath.row) as! NSDictionary
-            userDetails.userId = (self.router?.playerDetails)!
-            self.groupID = (userDetails.selectedGroup.value(forKey: "groupID") as? String)!
-            self.interactor?.addUserToGroup(request: userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
+            self.userDetails.selectedGroup = (self.groupModel?.groupArray)?.object(at: indexPath.row) as! NSDictionary
+            self.userDetails.userId = (self.router?.playerDetails.userId)!
+            self.groupID = (self.userDetails.selectedGroup.value(forKey: "groupID") as? String)!
+            let queue = DispatchQueue(label: "com.app.queue")
+            queue.sync {
+            self.interactor?.countUsersInTeam(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
+            }
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.destructive, handler: nil))
@@ -123,15 +132,37 @@ class JoinSquadViewController: UITableViewController, JoinSquadDisplayLogic
         let request = JoinSquad.Something.Request()
         interactor?.getGroups(request: request, currentInteractor: interactor as! JoinSquadInteractor)
     }
-    func displaySomething(response: JoinSquad.Something.GroupModel)
+    func displaySomething(response: JoinSquad.Something.GroupModel, teamCountA: Int, teamCountB: Int)
     {
         groupOptions = response.groupArray
         groupModel = response
         self.tableView.reloadData()
-        //nameTextField.text = viewModel.name
     }
     
     func successfulTeamJoin() {
         router?.routeToSomewhere()
+    }
+    
+    func successfulTeamCount(response: JoinSquad.Something.ResponseGroups) {
+        teamCounterA = response.teamACount
+        teamCounterB = response.teamBCount
+        teamCounterUnAssigned = response.teamUnassignedCount
+        groupResponse = response
+        if(self.teamCounterA < 5 && (self.router?.playerDetails.teamOption)! == "Team A") {
+            self.interactor?.addUserToGroup(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
+        }
+        else if(self.teamCounterB < 5 && (self.router?.playerDetails.teamOption)! == "Team B"){
+            self.interactor?.addUserToGroup(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
+        }
+        else {
+            self.interactor?.addUserToGroup(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
+        }
+    }
+    
+    func setToUnassignedIfTeamsFull()
+    {
+        print("SUCCESS")
+        self.interactor?.addUserToGroup(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
+        print("Teams are full , set to unassigned")
     }
 }

@@ -35,12 +35,21 @@ enum EditPlayerDetails
         var email = String()
         var userRating = NSNumber()
         var teamOption = String()
-        var numOfValues = Int()
         var id = String()
-        var userId = String()
-        var teamCaptain = Bool()
         var groupID = String()
         var groupName = String()
+    }
+    class PlayerModelResponse : NSObject
+    {
+        var success = Bool()
+    }
+    
+    struct ResponseGroups
+    {
+        var groupArray = NSMutableArray()
+        var teamACount = Int()
+        var teamBCount = Int()
+        var teamUnassignedCount = Int()
     }
 
   }

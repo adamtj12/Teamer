@@ -79,6 +79,7 @@ class LoginWorker
     
     func loginUserToFirebaseFacebook(_ loginButton: FBSDKLoginButton!, currentInteractor: LoginInteractor){
         var response = Login.Something.PlayerModel()
+
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         Auth.auth().signInAndRetrieveData(with: credential) { (authResult, error) in
             if let error = error {
@@ -91,6 +92,24 @@ class LoginWorker
                 response.userId = result.user.uid
                 
             }
+        }
+    }
+    
+    func getGroupIDFromUserID(details : Login.Something.PlayerModel, currentInteractor: LoginInteractor){
+        
+        var group : String = ""
+        db.collection("users").whereField("Userid", isEqualTo: details.userId)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        print("\(document.documentID) => \(document.data())")
+                        let dict = document.data() as NSDictionary
+                        group = dict.value(forKey: "groupID") as! String
+                    }
+                    currentInteractor.successfulGroupRetrieve(group: group, currentInteractor: currentInteractor)
+                }
         }
     }
 }

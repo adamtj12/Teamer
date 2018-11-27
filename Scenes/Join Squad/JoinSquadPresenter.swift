@@ -16,6 +16,8 @@ protocol JoinSquadPresentationLogic
 {
     func presentGroups(response: JoinSquad.Something.ResponseGroups)
     func successfulPlayerAdd()
+    func successfulPlayerCount(response: JoinSquad.Something.ResponseGroups)
+    func presentUpdateTeam()
 }
 
 class JoinSquadPresenter: JoinSquadPresentationLogic
@@ -31,11 +33,21 @@ class JoinSquadPresenter: JoinSquadPresentationLogic
             let dict : NSDictionary = group.object(at: i) as! NSDictionary
             details.groupArray.add(["groupName" : dict.object(forKey: "groupName") as! String, "groupID" : dict.object(forKey: "groupID") as! String])
         }
-        viewController?.displaySomething(response: details)
+        viewController?.displaySomething(response: details, teamCountA: 0, teamCountB: 0)
     }
     
     func successfulPlayerAdd() {
         viewController?.successfulTeamJoin()
     }
     
+    func successfulPlayerCount(response: JoinSquad.Something.ResponseGroups) {
+        viewController?.successfulTeamCount(response: response)
+    }
+    
+    func presentUpdateTeam()
+    {
+        viewController?.setToUnassignedIfTeamsFull()
+    }
+
+
 }

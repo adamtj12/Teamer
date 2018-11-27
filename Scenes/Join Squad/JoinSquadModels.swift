@@ -24,7 +24,10 @@ enum JoinSquad
         }
         struct ResponseGroups
         {
-            var groupArray : NSMutableArray
+            var groupArray = NSMutableArray()
+            var teamACount = Int()
+            var teamBCount = Int()
+            var teamUnassignedCount = Int()
         }
         
         struct RequestToAdd
@@ -43,5 +46,20 @@ enum JoinSquad
             var groupArray : NSMutableArray
         }
         
+        class PlayerModel : NSObject
+        {
+            var firstName = String()
+            var lastName = String()
+            var email = String()
+            var userRating = NSNumber()
+            var teamOption = String()
+            var numOfValues = Int()
+            var id = String()
+            var userId = String()
+            var teamCaptain = Bool()
+            var groupID = String()
+            var groupName = String()
+        }
+
     }
 }

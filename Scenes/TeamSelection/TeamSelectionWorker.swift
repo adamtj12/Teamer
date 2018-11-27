@@ -26,7 +26,7 @@ class TeamSelectionWorker
 
         let queue = DispatchQueue(label: "com.app.queue")
         queue.sync {
-            self.db.collection("users").whereField("groupId", isEqualTo: teamRequest.groupID)
+            self.db.collection("users").whereField("groupID", isEqualTo: teamRequest.groupID)
                 .getDocuments() { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")
@@ -36,7 +36,6 @@ class TeamSelectionWorker
                             localArray.add(document.data() as NSDictionary)
                         }
                         currentInteractor.teamResonseSuccess(result: localArray)
-                    }}
-        }
+                    }}}
     }
 }

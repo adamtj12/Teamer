@@ -62,6 +62,7 @@
 		8DB0456821A462CC00F41F0E /* EditPlayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0456221A462CC00F41F0E /* EditPlayerDetailsViewController.swift */; };
 		8DB0456921A462CC00F41F0E /* EditPlayerDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0456321A462CC00F41F0E /* EditPlayerDetailsInteractor.swift */; };
 		8DB0456B21A46C8500F41F0E /* PlayerInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB0456A21A46C8400F41F0E /* PlayerInformationTableViewCell.swift */; };
+		8DC0452921AD6D8700C0BBEB /* menuToggle.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DC0452821AD6D8600C0BBEB /* menuToggle.png */; };
 		B138A5CA6CB3914A47ECFC68 /* Pods_SampleCSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E27F1EE2BD248327662029E0 /* Pods_SampleCSUITests.framework */; };
 		CCD40906B55B17BD16010282 /* Pods_SampleCSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6DB60B6364C0981B7F282D8 /* Pods_SampleCSTests.framework */; };
 /* End PBXBuildFile section */
@@ -149,6 +150,7 @@
 		8DB0456221A462CC00F41F0E /* EditPlayerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlayerDetailsViewController.swift; sourceTree = "<group>"; };
 		8DB0456321A462CC00F41F0E /* EditPlayerDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlayerDetailsInteractor.swift; sourceTree = "<group>"; };
 		8DB0456A21A46C8400F41F0E /* PlayerInformationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInformationTableViewCell.swift; sourceTree = "<group>"; };
+		8DC0452821AD6D8600C0BBEB /* menuToggle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuToggle.png; sourceTree = "<group>"; };
 		A6DB60B6364C0981B7F282D8 /* Pods_SampleCSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleCSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFD66EB814630E1C1C507F66 /* Pods-SampleCSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleCSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SampleCSTests/Pods-SampleCSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E27F1EE2BD248327662029E0 /* Pods_SampleCSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleCSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -276,6 +278,7 @@
 		8DA87A372194616400B5747C /* SampleCS */ = {
 			isa = PBXGroup;
 			children = (
+				8DC0452821AD6D8600C0BBEB /* menuToggle.png */,
 				8DB0454C21A459E600F41F0E /* Custom UI Elements */,
 				8DB0454B21A459CD00F41F0E /* Menu */,
 				8D6092E4219B0D9D0083D6DE /* GoogleService-Info.plist */,
@@ -490,6 +493,7 @@
 				8D6092E5219B0D9E0083D6DE /* GoogleService-Info.plist in Resources */,
 				8DB0455D21A4623D00F41F0E /* EditPlayerDetails.storyboard in Resources */,
 				8D609304219C44490083D6DE /* AddUserView.xib in Resources */,
+				8DC0452921AD6D8700C0BBEB /* menuToggle.png in Resources */,
 				8DA87A432194616700B5747C /* Assets.xcassets in Resources */,
 				8DA87A3E2194616400B5747C /* Login.storyboard in Resources */,
 				8D6B772A2199947B00D99BD9 /* LogOutButtonTableViewCell.xib in Resources */,

@@ -11,8 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view hidden="YES" contentMode="scaleToFill" id="4uv-la-0n8" customClass="AddUserView" customModule="EventManagementSystem" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="269" height="347"/>
+        <view hidden="YES" contentMode="scaleToFill" id="4uv-la-0n8" customClass="AddUserView" customModule="SampleCS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="269" height="381"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2QX-lK-8g5">
@@ -37,7 +37,7 @@
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fUP-hv-cVM">
-                    <rect key="frame" x="19" y="283" width="230" height="44"/>
+                    <rect key="frame" x="19" y="331" width="230" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.3034790456" green="0.66777801510000001" blue="0.90983319279999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <state key="normal" title="Add User">
@@ -81,7 +81,7 @@
                 <outlet property="teamSelectionDropDown" destination="u6P-9Z-LcR" id="PPU-df-p9d"/>
                 <outlet property="userRatingSlider" destination="O3p-hO-A91" id="iEj-jl-q5J"/>
             </connections>
-            <point key="canvasLocation" x="61.5" y="-433.5"/>
+            <point key="canvasLocation" x="61.5" y="-416.5"/>
         </view>
     </objects>
 </document>

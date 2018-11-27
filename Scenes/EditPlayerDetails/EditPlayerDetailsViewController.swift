@@ -16,8 +16,15 @@ import FirebaseFirestore
 
 protocol EditPlayerDetailsDisplayLogic: class
 {
-  func displaySomething(viewModel: EditPlayerDetails.Something.ViewModel)
+  func displaySomething(player: EditPlayerDetails.Something.PlayerModel)
+  func successfulTeamCount(response: EditPlayerDetails.Something.ResponseGroups)
+
 }
+
+protocol UpdatePlayeronTeamSelector : class {
+    func updatePlayer(tags: [Int])
+}
+
 
 class EditPlayerDetailsViewController: UITableViewController, EditPlayerDetailsDisplayLogic
 {
@@ -26,7 +33,11 @@ class EditPlayerDetailsViewController: UITableViewController, EditPlayerDetailsD
   let db = Firestore.firestore()
   @IBOutlet weak var editButton: UIBarButtonItem!
   // MARK: Object lifecycle
-  
+  var teamSelectionVC = TeamSelectionViewController()
+  var request = EditPlayerDetails.Something.PlayerModel()
+
+  var delegate: updatePlayer?
+    
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
   {
     super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -71,8 +82,51 @@ class EditPlayerDetailsViewController: UITableViewController, EditPlayerDetailsD
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    doSomething()
+//    doSomething()
   }
+    
+    @IBAction func editPlayerPressed(_ sender: Any) {
+        let cells = self.tableView.visibleCells as! Array<PlayerInformationTableViewCell>
+        let button = sender as! UIBarButtonItem
+        if(button.title == "Edit"){
+            for cell in cells {
+                cell.valueField.isUserInteractionEnabled = true
+                cell.ratingSlider.isUserInteractionEnabled = true
+                cell.teamSelectionDropDown.isUserInteractionEnabled = true
+                if(cell.descriptLabel.text == "First Name:"){
+                    cell.valueField.becomeFirstResponder()
+                }
+            }
+            editButton.title = "Save Changes"
+        }
+        else{
+            let cells = self.tableView.visibleCells as! Array<PlayerInformationTableViewCell>
+            for cell in cells {
+                cell.valueField.isUserInteractionEnabled = false
+                cell.ratingSlider.isUserInteractionEnabled = false
+                
+                if(cell.valueField.tag == 0){
+                    request.firstName = cell.valueField.text!
+                }else if(cell.valueField.tag == 1){
+                    request.lastName = cell.valueField.text!
+                }
+                if(cell.valueField.tag == 2){
+                    request.email = cell.valueField.text!
+                }
+                if(cell.valueField.tag == 3){
+                    let ratingValue = (Float(Int((cell.ratingSlider.value * 15).rounded()) + 1/10))
+                    request.userRating = NSNumber(value : ratingValue)
+                }
+                
+                if(cell.valueField.tag == 4){
+                    request.teamOption = cell.teamSelectionDropDown.text!
+                }
+            }
+            request.id = (router?.player.id)!
+            request.groupID = (router?.player.groupID)!
+            self.interactor?.countUsersInTeam(request: request, currentInteractor: self.interactor as! EditPlayerDetailsInteractor)
+        }
+    }
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,23 +152,28 @@ class EditPlayerDetailsViewController: UITableViewController, EditPlayerDetailsD
         case 0:
             cell.descriptLabel.text = "First Name:"
             cell.valueField.text = router?.player.firstName
+            cell.valueField.tag = 0
         case 1:
             cell.descriptLabel.text = "Last Name:"
             cell.valueField.text = router?.player.lastName
+            cell.valueField.tag = 1
         case 2:
             cell.descriptLabel.text = "Email:"
             cell.valueField.text = router?.player.email
+            cell.valueField.tag = 2
         case 3:
             cell.descriptLabel.text = "Rating:"
             let userRating =  router?.player.userRating
             cell.ratingSlider.isHidden = false
             cell.valueField.isHidden = true
             cell.ratingSlider.value = Float(truncating: userRating!)
+            cell.valueField.tag = 3
         case 4:
             cell.descriptLabel.text = "Team:"
             cell.teamSelectionDropDown.text = router?.player.teamOption
             cell.valueField.isHidden = true
             cell.teamSelectionDropDown.isHidden = false
+            cell.valueField.tag = 4
         default:
             cell.descriptLabel.text = "First Name:"
             cell.valueField.text = router?.player.firstName
@@ -126,12 +185,28 @@ class EditPlayerDetailsViewController: UITableViewController, EditPlayerDetailsD
   //@IBOutlet weak var nameTextField: UITextField!
   func doSomething()
   {
-    let request = EditPlayerDetails.Something.Request()
-    interactor?.doSomething(request: request)
+//    let request = EditPlayerDetails.Something.Request()
+//
+//    interactor?.doSomething(request: (router?.player)!, currentInteractor: currentInteractor: self.interactor as! JoinSquadInteractor)
   }
   
-  func displaySomething(viewModel: EditPlayerDetails.Something.ViewModel)
+  func displaySomething(player: EditPlayerDetails.Something.PlayerModel)
   {
-    //nameTextField.text = viewModel.name
-  }
+        print("SUCCESS")
+       delegate?.onPlayerUpdateReady()
+       navigationController?.popViewController(animated: true)
+    }
+    
+    func successfulTeamCount(response: EditPlayerDetails.Something.ResponseGroups) {
+        if(response.teamACount < 5 && self.request.teamOption == "Team A") {
+            interactor?.doSomething(request: self.request, currentInteractor: self.interactor as! EditPlayerDetailsInteractor)
+        }
+        else if(response.teamBCount < 5 && self.request.teamOption == "Team B"){
+            interactor?.doSomething(request: self.request, currentInteractor: self.interactor as! EditPlayerDetailsInteractor)
+        }
+        else {
+            self.request.teamOption = "Unassigned"
+            interactor?.doSomething(request: self.request, currentInteractor: self.interactor as! EditPlayerDetailsInteractor)
+        }
+    }
 }

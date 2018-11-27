@@ -41,9 +41,10 @@ enum TeamSelection
     {
         var playerA : PlayerModel
         var playerB : PlayerModel
-        
+        var playerUA : PlayerModel
         var groupArrayA : NSMutableArray
         var groupArrayB : NSMutableArray
+        var groupArrayUA : NSMutableArray
 
     }
   }

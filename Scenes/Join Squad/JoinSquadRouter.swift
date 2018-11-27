@@ -14,7 +14,7 @@ import UIKit
 @objc protocol JoinSquadRoutingLogic
 {
     func routeToSomewhere()
-    var playerDetails: String {get set}
+    var playerDetails : JoinSquad.Something.PlayerModel {get set}
 }
 
 protocol JoinSquadDataPassing
@@ -24,7 +24,8 @@ protocol JoinSquadDataPassing
 
 class JoinSquadRouter: NSObject, JoinSquadRoutingLogic, JoinSquadDataPassing
 {
-    var playerDetails: String = ""
+    var playerDetails: JoinSquad.Something.PlayerModel = JoinSquad.Something.PlayerModel()
+
     weak var viewController: JoinSquadViewController?
     var dataStore: JoinSquadDataStore?
     
