@@ -12,6 +12,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
+import FirebaseAuth
 
 protocol LoginDisplayLogic: class
 {
@@ -19,7 +20,7 @@ protocol LoginDisplayLogic: class
     func toggleAddUserView(show: Login.Something.AddUserToggleScreen)
     func addPlayer(show: Login.Something.PlayerModel)
     func loginPlayer(show: Login.Something.PlayerModel)
-    func returnedGroupID(groupID: String)
+    func returnedGroupID(player: Login.Something.PlayerModel)
 }
 
 class LoginViewController: UIViewController, LoginDisplayLogic
@@ -28,6 +29,10 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     var router: (NSObjectProtocol & LoginRoutingLogic & LoginDataPassing)?
     var uid : String?
     var groupID : String?
+    var playerLoggedInAs = Login.Something.PlayerModel()
+
+    
+    var link : String?
     
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -36,9 +41,9 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     @IBOutlet weak var registerUserField: UITextField!
     @IBOutlet weak var registerPasswordField: UITextField!
     @IBOutlet weak var button: FBSDKLoginButton!
+    @IBOutlet weak var registerUserEmailAuthField: UITextField!
     
     // MARK: Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -77,7 +82,14 @@ class LoginViewController: UIViewController, LoginDisplayLogic
             }
             else {
                 if let destinationVC = segue.destination as? TeamSelectionViewController {
-                    destinationVC.router?.groupID = self.groupID!
+                    destinationVC.router?.playerDetails.groupID = self.playerLoggedInAs.groupID
+                    destinationVC.router?.playerDetails.firstName = self.playerLoggedInAs.firstName
+                    destinationVC.router?.playerDetails.lastName = self.playerLoggedInAs.lastName
+                    destinationVC.router?.playerDetails.email = self.playerLoggedInAs.email
+                    destinationVC.router?.playerDetails.userRating = self.playerLoggedInAs.userRating
+                    destinationVC.router?.playerDetails.teamOption = self.playerLoggedInAs.teamOption
+                    destinationVC.router?.playerDetails.userId = self.playerLoggedInAs.userId
+                    destinationVC.router?.playerDetails.teamCaptain = self.playerLoggedInAs.teamCaptain
                 }
             }
         }
@@ -88,6 +100,10 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     {
         super.viewDidLoad()
         checkForAlreadyLoggedInStatus()
+        if let link = UserDefaults.standard.value(forKey: "Link") as? String {
+            self.link = link
+        }
+
     }
     
     // MARK: - CheckLoginStatus
@@ -122,8 +138,9 @@ class LoginViewController: UIViewController, LoginDisplayLogic
        // router?.routeToAddPlayerInfo()
     }
     
-    func returnedGroupID(groupID: String) {
-        self.groupID = groupID
+    func returnedGroupID(player: Login.Something.PlayerModel) {
+        self.groupID = player.groupID
+        playerLoggedInAs = player
         router?.routeToTeamSelection()
     }
     
@@ -134,6 +151,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     // MARK: - AddUserFunctionality
     @IBAction func addUser(_ sender: Any) {
         self.registerView.isHidden = false
+        self.navigationItem.title = "Register"
         let addUserShow = Login.Something.AddUserToggleScreen(showUserScreen: self.registerView.isHidden)
         interactor?.AddUserToggleScreen(showing: addUserShow)
     }
@@ -161,8 +179,38 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         interactor?.addUserToFirebase(add: registerUser, currentInteractor: interactor as! LoginInteractor)
     }
     
-    func addPlayer(show: Login.Something.PlayerModel) {
+    @IBAction func registerWithEmailAuthPressed(_ sender: Any) {
+        let actionCodeSettings = ActionCodeSettings()
+        actionCodeSettings.url = URL(string: "https://teamerconfirmregistration.page.link/?link=https://www.example.com&efr=1")
+        // The sign-in operation has to always be completed in the app.
+        actionCodeSettings.handleCodeInApp = true
+        actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
+        actionCodeSettings.setAndroidPackageName("com.example.android",
+                                                 installIfNotAvailable: false, minimumVersion: "12")
         
+        Auth.auth().sendSignInLink(toEmail:registerUserEmailAuthField.text!,
+                                   actionCodeSettings: actionCodeSettings) { error in
+                                    // ...
+                                    if let error = error {
+                                        return
+                                    }
+                                    UserDefaults.standard.set(self.registerUserEmailAuthField.text!, forKey: "Email")
+        }
+    }
+    
+    @IBAction func didTapSignInWithEmailLink(_ sender: AnyObject) {
+        if let email = self.registerUserEmailAuthField.text {
+            Auth.auth().signIn(withEmail: email, link: self.link!) { (user, error) in
+                        if let error = error {
+                            return
+                        }
+                self.router?.routeToSomewhere()
+                }
+        }
+    }
+
+    
+    func addPlayer(show: Login.Something.PlayerModel) {
         uid = show.userId
         print("CLEAN SWIFT WORKING !!!!!!!!")
         router?.routeToSomewhere()

@@ -160,38 +160,38 @@ extension MenuViewController: SideMenuControllerDelegate {
 
 extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
 
     // swiftlint:disable force_cast
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = indexPath.row
-        if row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SelectionCell
-            cell.contentView.backgroundColor = themeColor
-            cell.titleLabel?.text = "View Teams"
-            cell.titleLabel?.textColor = isDarkModeEnabled ? .white : .black
-            return cell
-
-        } else if row == 1 {
-            if ((FBSDKAccessToken.current()) != nil) {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! LogOutButtonTableViewCell
-                cell.button.delegate = self as? FBSDKLoginButtonDelegate
-                cell.button.isHidden = false
-                cell.logOutButton.isHidden = true
-                cell.button.isUserInteractionEnabled = true
-                cell.logOutButton.isUserInteractionEnabled = false
-                return cell
-            }
-            else{
+//        if row == 0 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SelectionCell
+//            cell.contentView.backgroundColor = themeColor
+//            cell.titleLabel?.text = "View Teams"
+//            cell.titleLabel?.textColor = isDarkModeEnabled ? .white : .black
+//            return cell
+//
+//        } else if row == 1 {
+//            if ((FBSDKAccessToken.current()) != nil) {
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! LogOutButtonTableViewCell
+//                cell.button.delegate = self as? FBSDKLoginButtonDelegate
+//                cell.button.isHidden = false
+//                cell.logOutButton.isHidden = true
+//                cell.button.isUserInteractionEnabled = true
+//                cell.logOutButton.isUserInteractionEnabled = false
+//                return cell
+//            }
+//            else{
                 let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath) as! LogOutButtonTableViewCell
                 cell.button.isHidden = true
                 cell.logOutButton.isHidden = false
                 cell.button.isUserInteractionEnabled = false
                 cell.logOutButton.isUserInteractionEnabled = true
                 return cell
-            }
-        }
+//            }
+//        }
         return tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SelectionCell
     }
 

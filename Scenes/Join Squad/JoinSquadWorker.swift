@@ -105,9 +105,5 @@ class JoinSquadWorker
                                 ])
                         }
                         currentInteractor.playerUpdatedSuccess(currentInteractor: currentInteractor)
-                    }
-            }
-        }
-    }
-
+                    }}}}
 }

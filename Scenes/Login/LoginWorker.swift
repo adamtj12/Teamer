@@ -96,8 +96,7 @@ class LoginWorker
     }
     
     func getGroupIDFromUserID(details : Login.Something.PlayerModel, currentInteractor: LoginInteractor){
-        
-        var group : String = ""
+        var dict : NSDictionary = NSDictionary.init()
         db.collection("users").whereField("Userid", isEqualTo: details.userId)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -105,10 +104,9 @@ class LoginWorker
                 } else {
                     for document in querySnapshot!.documents {
                         print("\(document.documentID) => \(document.data())")
-                        let dict = document.data() as NSDictionary
-                        group = dict.value(forKey: "groupID") as! String
+                        dict = document.data() as NSDictionary
                     }
-                    currentInteractor.successfulGroupRetrieve(group: group, currentInteractor: currentInteractor)
+                    currentInteractor.successfulGroupRetrieve(player: dict, currentInteractor: currentInteractor)
                 }
         }
     }

@@ -12,12 +12,10 @@
 
 import UIKit
 
-@objc protocol TeamSelectionRoutingLogic
-{
+@objc protocol TeamSelectionRoutingLogic {
     var groupID: String {get set}
     func routeToPlayerInfo()
     var playerDetails : JoinSquad.Something.PlayerModel {get set}
-
 }
 
 protocol TeamSelectionDataPassing
@@ -27,7 +25,6 @@ protocol TeamSelectionDataPassing
 
 class TeamSelectionRouter: NSObject, TeamSelectionRoutingLogic, TeamSelectionDataPassing
 {
-    
   var playerDetails: JoinSquad.Something.PlayerModel = JoinSquad.Something.PlayerModel()
   var groupID: String = ""
   weak var viewController: TeamSelectionViewController?
@@ -38,7 +35,6 @@ class TeamSelectionRouter: NSObject, TeamSelectionRoutingLogic, TeamSelectionDat
   }
 
   // MARK: Routing
-  
   //func routeToSomewhere(segue: UIStoryboardSegue?)
   //{
   //  if let segue = segue {

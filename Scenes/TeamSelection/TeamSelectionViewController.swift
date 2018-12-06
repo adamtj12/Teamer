@@ -90,6 +90,7 @@ class TeamSelectionViewController: UIViewController, TeamSelectionDisplayLogic, 
             destinationVC.router?.player.teamOption = selectedPlayer.teamOption
             destinationVC.router?.player.id = selectedPlayer.id
             destinationVC.router?.player.groupID = (router?.groupID)!
+            destinationVC.router?.player.teamCaptain = (router?.playerDetails.teamCaptain)!
             destinationVC.delegate = self
         }
     }
@@ -115,10 +116,10 @@ class TeamSelectionViewController: UIViewController, TeamSelectionDisplayLogic, 
   func getTeamData()
   {
     var request = TeamSelection.Something.TeamRequest()
-    request.groupID = (router?.groupID)!
+    request.groupID = (router?.playerDetails.groupID)!
 
-    if((router?.groupID) == ""){
-        request.groupID = (router?.groupID)!
+    if((router?.playerDetails.groupID) == ""){
+        request.groupID = (router?.playerDetails.groupID)!
     }
     interactor?.performTeamRequest(request: request, currentInteractor: interactor as! TeamSelectionInteractor)
   }

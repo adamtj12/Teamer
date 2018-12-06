@@ -115,8 +115,8 @@ class LoginInteractor: LoginBusinessLogic, LoginDataStore
         self.worker?.getGroupIDFromUserID(details: add, currentInteractor: currentInteractor)
     }
     
-    func successfulGroupRetrieve(group: String, currentInteractor: LoginInteractor)
+    func successfulGroupRetrieve(player: NSDictionary, currentInteractor: LoginInteractor)
     {
-        presenter?.returnGroupID(groupID: group)
+        presenter?.returnGroupID(player: player)
     }
 }

@@ -45,7 +45,13 @@ enum TeamSelection
         var groupArrayA : NSMutableArray
         var groupArrayB : NSMutableArray
         var groupArrayUA : NSMutableArray
-
     }
+    
+    
+    struct ResponseGroups
+    {
+        var alreadyTeamCaptain = Bool()
+    }
+
   }
 }

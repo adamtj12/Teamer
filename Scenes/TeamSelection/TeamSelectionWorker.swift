@@ -38,4 +38,27 @@ class TeamSelectionWorker
                         currentInteractor.teamResonseSuccess(result: localArray)
                     }}}
     }
+    
+    
+//    func checkIfTeamHasCaptain(details: TeamSelection.Something.PlayerModel ,currentInteractor: JoinSquadInteractor) {
+//        let queue = DispatchQueue(label: "com.app.queue")
+//        var model = TeamSelection.Something.ResponseGroups.init(alreadyTeamCaptain: false)
+//        self.db.collection("users").whereField("groupID", isEqualTo: details.selectedGroup.object(forKey: "groupID")).getDocuments() { (querySnapshot, err) in
+//            if let err = err {
+//                print("Error getting documents: \(err)")
+//            } else {
+//                for document in querySnapshot!.documents {
+//                    print("\(document.documentID) => \(document.data())")
+//                    let dict : NSDictionary = document.data() as NSDictionary
+//                    if(dict.value(forKey: "teamCaptain") as! Bool == true){
+//                        model.alreadyTeamCaptain = true
+//                    }
+//                    else if(dict.value(forKey: "teamCaptain") as! Bool == false){
+//                        model.alreadyTeamCaptain = false
+//                    }
+//                }
+//                currentInteractor.successfulCount(response: model, currentInteractor: currentInteractor)
+//            }
+//        }
+//    }
 }

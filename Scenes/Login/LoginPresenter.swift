@@ -18,8 +18,7 @@ protocol LoginPresentationLogic
     func displayAddedUserScreen(showing: AuthDataResult)
     func displayLoggedInUserScreen(showing: AuthDataResult)
     func displayLoggedInUserScreenFacebook()
-    func returnGroupID(groupID: String)
-
+    func returnGroupID(player: NSDictionary)
 }
 
 class LoginPresenter: LoginPresentationLogic
@@ -59,7 +58,19 @@ class LoginPresenter: LoginPresentationLogic
 //        viewController?.loginPlayer(show: showing)
     }
     
-    func returnGroupID(groupID: String) {
-        viewController?.returnedGroupID(groupID: groupID)
+    func returnGroupID(player: NSDictionary) {
+        var details = Login.Something.PlayerModel()
+        details.firstName = player.object(forKey: "firstName") as! String
+        details.lastName = player.object(forKey: "lastName") as! String
+        details.email = player.object(forKey: "email") as! String
+        details.userRating = player.object(forKey: "userRating") as! NSNumber
+        details.teamOption = player.object(forKey: "teamOption") as! String
+        details.id = player.object(forKey: "id") as! String
+        details.userId = player.object(forKey: "Userid") as! String
+        details.teamCaptain = player.object(forKey: "teamCaptain") as! Bool
+        details.groupID = player.object(forKey: "groupID") as! String
+        details.groupName = player.object(forKey: "groupName") as! String
+        viewController?.returnedGroupID(player: details
+        )
     }
 }

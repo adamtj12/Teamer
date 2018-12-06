@@ -11,6 +11,7 @@ import CoreData
 import Firebase
 import IQKeyboardManagerSwift
 import FBSDKCoreKit
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -93,5 +94,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        // [END old_delegate]
+        if handlePasswordlessSignIn(withURL: url) {
+            return true
+        }
+        return FBSDKApplicationDelegate.sharedInstance().application(application,
+                                                                     open: url,
+                                                                     // [START old_options]
+            sourceApplication: sourceApplication,
+            annotation: annotation)
+    }
+
+    private func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        return userActivity.webpageURL.flatMap(handlePasswordlessSignIn)!
+    }
+
+    
+    func handlePasswordlessSignIn(withURL url: URL) -> Bool {
+        let link = url.absoluteString
+        // [START is_signin_link]
+        if Auth.auth().isSignIn(withEmailLink: link) {
+            // [END is_signin_link]
+            UserDefaults.standard.set(link, forKey: "Link")
+            (window?.rootViewController as? UINavigationController)?.popToRootViewController(animated: false)
+            window?.rootViewController?.children[0].performSegue(withIdentifier: "passwordless", sender: nil)
+            return true
+        }
+        return false
+    }
+
 }
 

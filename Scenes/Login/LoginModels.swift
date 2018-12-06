@@ -41,9 +41,17 @@ enum Login
         }
         struct PlayerModel
         {
+            var firstName = String()
+            var lastName = String()
             var email = String()
-            var password = String()
+            var userRating = NSNumber()
+            var teamOption = String()
+            var numOfValues = Int()
+            var id = String()
             var userId = String()
+            var teamCaptain = Bool()
+            var groupID = String()
+            var groupName = String()
         }
         struct RegisterModel
         {

@@ -38,6 +38,7 @@ enum EditPlayerDetails
         var id = String()
         var groupID = String()
         var groupName = String()
+        var teamCaptain = Bool()
     }
     class PlayerModelResponse : NSObject
     {

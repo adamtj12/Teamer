@@ -13,6 +13,7 @@
 import UIKit
 import Firebase
 import FirebaseFirestore
+import FirebaseAuth
 
 protocol EditPlayerDetailsDisplayLogic: class
 {
@@ -82,6 +83,21 @@ class EditPlayerDetailsViewController: UITableViewController, EditPlayerDetailsD
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    
+    if Auth.auth().currentUser != nil {
+        if(Auth.auth().currentUser?.email == router?.player.email || router?.player.teamCaptain == true)
+        {
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }else{
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+        // User is signed in.
+        // ...
+    } else {
+        // No user is signed in.
+        // ...
+    }
+
 //    doSomething()
   }
     
