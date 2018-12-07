@@ -34,11 +34,20 @@ enum AddPlayerDetails
         }
         struct Response
         {
+            var alreadyExisted = Bool()
         }
         struct ViewModel
         {
         }
         
+        struct ResponseGroups
+        {
+            var groupArray = NSMutableArray()
+            var teamACount = Int()
+            var teamBCount = Int()
+            var teamUnassignedCount = Int()
+        }
+
         class PlayerModel : NSObject
         {
             var firstName = String()

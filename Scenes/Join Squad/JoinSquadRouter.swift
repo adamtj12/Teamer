@@ -15,6 +15,7 @@ import UIKit
 {
     func routeToSomewhere()
     var playerDetails : JoinSquad.Something.PlayerModel {get set}
+    var loginDetails: Array<String>? {get set}
 }
 
 protocol JoinSquadDataPassing
@@ -28,7 +29,8 @@ class JoinSquadRouter: NSObject, JoinSquadRoutingLogic, JoinSquadDataPassing
 
     weak var viewController: JoinSquadViewController?
     var dataStore: JoinSquadDataStore?
-    
+    var loginDetails: Array<String>?
+
     func routeToSomewhere(){
         viewController?.performSegue(withIdentifier: "showTeams", sender: nil)
     }

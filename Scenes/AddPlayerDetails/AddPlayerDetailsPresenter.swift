@@ -15,11 +15,18 @@ import UIKit
 protocol AddPlayerDetailsPresentationLogic
 {
     func presentSomething(response: AddPlayerDetails.Something.Response)
-    func displayJoinTeam(showing: AddPlayerDetails.Something.Request)
+    func displayJoinTeam(showing: AddPlayerDetails.Something.PlayerModel)
+    func presentAlreadyCaptainCheck(response: AddPlayerDetails.Something.Response)
+    func presentUpdateTeam()
+    func successfulPlayerCount(response: AddPlayerDetails.Something.ResponseGroups)
 }
 
 class AddPlayerDetailsPresenter: AddPlayerDetailsPresentationLogic
 {
+    func presentAlreadyCaptainCheck(response: AddPlayerDetails.Something.Response) {
+        viewController?.showCaptainRespinse(response: response)
+    }
+    
     weak var viewController: AddPlayerDetailsDisplayLogic?
     
     // MARK: Do something
@@ -30,7 +37,7 @@ class AddPlayerDetailsPresenter: AddPlayerDetailsPresentationLogic
         viewController?.displaySomething(viewModel: viewModel)
     }
     
-    func displayJoinTeam(showing: AddPlayerDetails.Something.Request){
+    func displayJoinTeam(showing: AddPlayerDetails.Something.PlayerModel){
         var details = AddPlayerDetails.Something.PlayerModel()
         details.firstName = showing.firstName
         details.lastName = showing.lastName
@@ -43,4 +50,15 @@ class AddPlayerDetailsPresenter: AddPlayerDetailsPresentationLogic
         details.userId = showing.userId
         viewController?.addedPlayerDetails(showing: details)
     }
+    
+    func successfulPlayerCount(response: AddPlayerDetails.Something.ResponseGroups) {
+        viewController?.successfulTeamCount(response: response)
+    }
+    
+    func presentUpdateTeam()
+    {
+        viewController?.setToUnassignedIfTeamsFull()
+    }
+    
+
 }

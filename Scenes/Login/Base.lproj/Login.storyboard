@@ -330,13 +330,13 @@
             </objects>
             <point key="canvasLocation" x="1940" y="-389"/>
         </scene>
-        <!--addPlayerViewController-->
+        <!--JoinSquadViewController-->
         <scene sceneID="2Jv-ZX-y9l">
             <objects>
-                <viewControllerPlaceholder storyboardIdentifier="addPlayerViewController" storyboardName="AddPlayerDetails" referencedIdentifier="addPlayerViewController" id="fYs-nr-Xxt" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="JoinSquadViewController" storyboardName="JoinSquad" referencedIdentifier="JoinSquadViewController" id="fYs-nr-Xxt" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QtD-kM-LTP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2975" y="431"/>
+            <point key="canvasLocation" x="2726" y="430"/>
         </scene>
         <!--squadViewController-->
         <scene sceneID="Je7-PW-7Wp">

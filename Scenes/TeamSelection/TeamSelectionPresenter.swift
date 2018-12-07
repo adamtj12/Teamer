@@ -32,6 +32,7 @@ class TeamSelectionPresenter: TeamSelectionPresentationLogic
     for i in 0...showing.count-1{
         let dict : NSDictionary = showing.object(at: i) as! NSDictionary
       
+        if(dict.value(forKey: "teamOption") != nil) {
         if((dict.object(forKey: "teamOption") as! String) == "Team A"){
             playerTeamA.firstName = dict.object(forKey: "firstName") as! String
             playerTeamA.lastName = dict.object(forKey: "lastName") as! String
@@ -70,6 +71,7 @@ class TeamSelectionPresenter: TeamSelectionPresentationLogic
             playerTeamUA.groupID = dict.object(forKey: "groupID") as! String
             playerTeamUA.groupName = dict.object(forKey: "groupName") as! String
             playerModel.groupArrayUA.add(playerTeamUA)
+        }
         }
     }
     viewController?.displayPlayerInformation(playerModel: playerModel)

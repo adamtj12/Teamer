@@ -83,7 +83,6 @@ class EditPlayerDetailsViewController: UITableViewController, EditPlayerDetailsD
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    
     if Auth.auth().currentUser != nil {
         if(Auth.auth().currentUser?.email == router?.player.email || router?.player.teamCaptain == true)
         {

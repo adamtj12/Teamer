@@ -17,6 +17,8 @@ import UIKit
     //func routeToSomewhere(segue: UIStoryboardSegue?)
     func routeToSomewhere()
     var loginDetails: Array<String>? {get set}
+    var playerDetails : JoinSquad.Something.PlayerModel {get set}
+
 }
 
 protocol AddPlayerDetailsDataPassing
@@ -29,7 +31,8 @@ class AddPlayerDetailsRouter: NSObject, AddPlayerDetailsRoutingLogic, AddPlayerD
     var loginDetails: Array<String>?
     weak var viewController: AddPlayerDetailsViewController?
     var dataStore: AddPlayerDetailsDataStore?
-    
+    var playerDetails: JoinSquad.Something.PlayerModel = JoinSquad.Something.PlayerModel()
+
     func routeToSomewhere(){
         viewController?.performSegue(withIdentifier: "joinsquad", sender: nil)
     }

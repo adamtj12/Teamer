@@ -14,8 +14,13 @@ import UIKit
 protocol AddPlayerDetailsBusinessLogic
 {
     func doSomething(request: AddPlayerDetails.Something.Request)
-    func submitPlayerDetailsToServer(add : AddPlayerDetails.Something.Request , currentInteractor: AddPlayerDetailsInteractor)
-    func playerDetailsAddedToServerSuccess(result : AddPlayerDetails.Something.Request , currentInteractor: AddPlayerDetailsInteractor)
+    func submitPlayerDetailsToServer(add : AddPlayerDetails.Something.PlayerModel , currentInteractor: AddPlayerDetailsInteractor)
+    func playerDetailsAddedToServerSuccess(result : AddPlayerDetails.Something.PlayerModel , currentInteractor: AddPlayerDetailsInteractor)
+    func checkIfTeamCaptainExists(check: AddPlayerDetails.Something.PlayerModel, currentInteractor: AddPlayerDetailsInteractor)
+    func TeamCaptainExistsSuccess(response: AddPlayerDetails.Something.Response, currentInteractor: AddPlayerDetailsInteractor)
+    func countUsersInTeam(request: AddPlayerDetails.Something.PlayerModel, currentInteractor: AddPlayerDetailsInteractor)
+    func successfulCount(response: AddPlayerDetails.Something.ResponseGroups, currentInteractor: AddPlayerDetailsInteractor)
+    func playerUpdatedSuccess(currentInteractor: AddPlayerDetailsInteractor)
 }
 
 protocol AddPlayerDetailsDataStore
@@ -25,12 +30,12 @@ protocol AddPlayerDetailsDataStore
 
 class AddPlayerDetailsInteractor: AddPlayerDetailsBusinessLogic, AddPlayerDetailsDataStore
 {
-    func submitPlayerDetailsToServer(add : AddPlayerDetails.Something.Request, currentInteractor: AddPlayerDetailsInteractor) {
+    func submitPlayerDetailsToServer(add : AddPlayerDetails.Something.PlayerModel, currentInteractor: AddPlayerDetailsInteractor) {
         worker = AddPlayerDetailsWorker()
         self.worker?.submitPlayerDetailsToServer(details: add, currentInteractor: currentInteractor)
     }
     
-    func playerDetailsAddedToServerSuccess(result: AddPlayerDetails.Something.Request, currentInteractor: AddPlayerDetailsInteractor) {
+    func playerDetailsAddedToServerSuccess(result: AddPlayerDetails.Something.PlayerModel, currentInteractor: AddPlayerDetailsInteractor) {
         presenter?.displayJoinTeam(showing: result)
     }
     
@@ -46,4 +51,32 @@ class AddPlayerDetailsInteractor: AddPlayerDetailsBusinessLogic, AddPlayerDetail
         let response = AddPlayerDetails.Something.Response()
         presenter?.presentSomething(response: response)
     }
+    
+    func checkIfTeamCaptainExists(check: AddPlayerDetails.Something.PlayerModel, currentInteractor: AddPlayerDetailsInteractor){
+        worker = AddPlayerDetailsWorker()
+        self.worker?.checkIfTeamHasCaptain(check: check, currentInteractor: currentInteractor)
+    }
+    
+    func TeamCaptainExistsSuccess(response: AddPlayerDetails.Something.Response, currentInteractor: AddPlayerDetailsInteractor){
+//        worker = AddPlayerDetailsWorker()
+//        self.worker?.submitPlayerDetailsToServer(details: c, currentInteractor: currentInteractor)
+        presenter?.presentAlreadyCaptainCheck(response: response)
+
+    }
+
+    func countUsersInTeam(request: AddPlayerDetails.Something.PlayerModel, currentInteractor: AddPlayerDetailsInteractor) {
+        worker = AddPlayerDetailsWorker()
+        worker?.countCurrentPlayers(details: request, currentInteractor: currentInteractor)
+    }
+    
+    func successfulCount(response: AddPlayerDetails.Something.ResponseGroups, currentInteractor: AddPlayerDetailsInteractor) {
+        presenter?.successfulPlayerCount(response: response)
+    }
+    
+    func playerUpdatedSuccess(currentInteractor: AddPlayerDetailsInteractor) {
+        presenter?.presentUpdateTeam()
+    }
+
+    
+
 }

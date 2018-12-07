@@ -22,7 +22,7 @@ class AddPlayerDetailsWorker
     {
     }
     
-    func submitPlayerDetailsToServer(details: AddPlayerDetails.Something.Request, currentInteractor: AddPlayerDetailsInteractor){
+    func submitPlayerDetailsToServer(details: AddPlayerDetails.Something.PlayerModel, currentInteractor: AddPlayerDetailsInteractor){
         if(details.firstName != ""){
             db.collection("users").whereField("Userid", isEqualTo: details.userId)
                 .getDocuments() { (querySnapshot, err) in
@@ -45,4 +45,72 @@ class AddPlayerDetailsWorker
             }
         }
     }
+    
+    func checkIfTeamHasCaptain(check: AddPlayerDetails.Something.PlayerModel , currentInteractor: AddPlayerDetailsInteractor) {
+        let queue = DispatchQueue(label: "com.app.queue")
+        var model = AddPlayerDetails.Something.Response.init(alreadyExisted: false)
+        self.db.collection("users").whereField("groupID", isEqualTo: check.groupID).whereField("teamOption", isEqualTo: check.teamOption).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    let dict : NSDictionary = document.data() as NSDictionary
+                    if(dict.value(forKey: "teamCaptain") as! Bool == true){
+                        model.alreadyExisted = true
+                    }
+                    else if(dict.value(forKey: "teamCaptain") as! Bool == false){
+                        model.alreadyExisted = false
+                    }
+                }
+                currentInteractor.TeamCaptainExistsSuccess(response: model, currentInteractor: currentInteractor)}
+        }
+    }
+    
+    func countCurrentPlayers(details: AddPlayerDetails.Something.PlayerModel ,currentInteractor: AddPlayerDetailsInteractor) {
+        let queue = DispatchQueue(label: "com.app.queue")
+        var model = AddPlayerDetails.Something.ResponseGroups.init(groupArray: [], teamACount: 0, teamBCount: 0, teamUnassignedCount: 0)
+        self.db.collection("users").whereField("groupID", isEqualTo: details.groupID).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    let dict : NSDictionary = document.data() as NSDictionary
+                    
+                    if(dict.value(forKey: "teamOption") != nil) {
+                        if(dict.value(forKey: "teamOption") as! String == "Team A"){
+                            model.teamACount+=1
+                        } else if(dict.value(forKey: "teamOption") as! String == "Team B"){
+                            model.teamBCount+=1
+                        } else{
+                            model.teamUnassignedCount+=1
+                        }
+                    }
+                    // count team a and team b here
+                }
+                currentInteractor.successfulCount(response: model, currentInteractor: currentInteractor)
+            }
+        }
+    }
+    
+    func updateCurrentPlayerTeam(player: AddPlayerDetails.Something.PlayerModel, currentInteractor: AddPlayerDetailsInteractor)
+    {
+        // call action to update fields.
+        let queue = DispatchQueue(label: "com.app.queue")
+        queue.sync {
+            db.collection("users").whereField("Userid", isEqualTo: player.userId)
+                .getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            print("\(document.documentID) => \(document.data())")
+                            self.db.collection("users").document(document.documentID).updateData([
+                                "teamOption" : player.teamOption
+                                ])
+                        }
+                        currentInteractor.playerUpdatedSuccess(currentInteractor: currentInteractor)
+                    }}}}
+
 }

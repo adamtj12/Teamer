@@ -16,8 +16,6 @@ protocol JoinSquadPresentationLogic
 {
     func presentGroups(response: JoinSquad.Something.ResponseGroups)
     func successfulPlayerAdd()
-    func successfulPlayerCount(response: JoinSquad.Something.ResponseGroups)
-    func presentUpdateTeam()
 }
 
 class JoinSquadPresenter: JoinSquadPresentationLogic
@@ -39,15 +37,4 @@ class JoinSquadPresenter: JoinSquadPresentationLogic
     func successfulPlayerAdd() {
         viewController?.successfulTeamJoin()
     }
-    
-    func successfulPlayerCount(response: JoinSquad.Something.ResponseGroups) {
-        viewController?.successfulTeamCount(response: response)
-    }
-    
-    func presentUpdateTeam()
-    {
-        viewController?.setToUnassignedIfTeamsFull()
-    }
-
-
 }

@@ -20,7 +20,6 @@ protocol JoinSquadDisplayLogic: class
     func displaySomething(response: JoinSquad.Something.GroupModel, teamCountA : Int, teamCountB: Int)
     var groupModel : JoinSquad.Something.GroupModel? {get set}
     func successfulTeamJoin()
-    func successfulTeamCount(response: JoinSquad.Something.ResponseGroups)
     func setToUnassignedIfTeamsFull()
 }
 
@@ -70,8 +69,9 @@ class JoinSquadViewController: UITableViewController, JoinSquadDisplayLogic
     {
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let destinationVC = segue.destination as? TeamSelectionViewController {
-                destinationVC.router?.groupID = groupID
+            if let destinationVC = segue.destination as? AddPlayerDetailsViewController {
+                destinationVC.router?.playerDetails.groupID = groupID
+                destinationVC.router?.loginDetails = router?.loginDetails
             }
         }
     }
@@ -114,12 +114,9 @@ class JoinSquadViewController: UITableViewController, JoinSquadDisplayLogic
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { action in
             print("Click of default button")
             self.userDetails.selectedGroup = (self.groupModel?.groupArray)?.object(at: indexPath.row) as! NSDictionary
-            self.userDetails.userId = (self.router?.playerDetails.userId)!
+            self.userDetails.userId = self.router?.loginDetails![1] as! String
             self.groupID = (self.userDetails.selectedGroup.value(forKey: "groupID") as? String)!
-            let queue = DispatchQueue(label: "com.app.queue")
-            queue.sync {
-            self.interactor?.countUsersInTeam(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
-            }
+            self.interactor?.addUserToGroup(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.destructive, handler: nil))
@@ -142,23 +139,7 @@ class JoinSquadViewController: UITableViewController, JoinSquadDisplayLogic
     func successfulTeamJoin() {
         router?.routeToSomewhere()
     }
-    
-    func successfulTeamCount(response: JoinSquad.Something.ResponseGroups) {
-        teamCounterA = response.teamACount
-        teamCounterB = response.teamBCount
-        teamCounterUnAssigned = response.teamUnassignedCount
-        groupResponse = response
-        if(self.teamCounterA < 5 && (self.router?.playerDetails.teamOption)! == "Team A") {
-            self.interactor?.addUserToGroup(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
-        }
-        else if(self.teamCounterB < 5 && (self.router?.playerDetails.teamOption)! == "Team B"){
-            self.interactor?.addUserToGroup(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
-        }
-        else {
-            self.interactor?.addUserToGroup(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
-        }
-    }
-    
+        
     func setToUnassignedIfTeamsFull()
     {
         print("SUCCESS")

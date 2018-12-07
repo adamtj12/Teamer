@@ -16,15 +16,32 @@ protocol AddPlayerDetailsDisplayLogic: class
 {
     func displaySomething(viewModel: AddPlayerDetails.Something.ViewModel)
     func addedPlayerDetails(showing: AddPlayerDetails.Something.PlayerModel)
+    func showCaptainRespinse(response: AddPlayerDetails.Something.Response)
+    func successfulTeamCount(response: AddPlayerDetails.Something.ResponseGroups)
+    func successfulTeamJoin()
+    func setToUnassignedIfTeamsFull()
 }
 
 class AddPlayerDetailsViewController: UIViewController, AddPlayerDetailsDisplayLogic
 {
+    func showCaptainRespinse(response: AddPlayerDetails.Something.Response) {
+        if(response.alreadyExisted == false){
+        interactor?.submitPlayerDetailsToServer(add: userDetails, currentInteractor: interactor as! AddPlayerDetailsInteractor)
+        }
+        else{
+            userDetails.teamCaptain = false
+            interactor?.submitPlayerDetailsToServer(add: userDetails, currentInteractor: interactor as! AddPlayerDetailsInteractor)
+        }
+    }
+    
     var interactor: AddPlayerDetailsBusinessLogic?
     var router: (NSObjectProtocol & AddPlayerDetailsRoutingLogic & AddPlayerDetailsDataPassing)?
     var uid : String?
     var playerDetails = AddPlayerDetails.Something.PlayerModel()
-    
+    var userDetails = AddPlayerDetails.Something.PlayerModel()
+    var teamCounterA : Int = 0, teamCounterB : Int = 0, teamCounterUnAssigned : Int = 0
+    var groupResponse: AddPlayerDetails.Something.ResponseGroups?
+
     @IBOutlet weak var addUserView: AddUserView!
     
     // MARK: Object lifecycle
@@ -61,16 +78,9 @@ class AddPlayerDetailsViewController: UIViewController, AddPlayerDetailsDisplayL
     {
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let destinationVC = segue.destination as? JoinSquadViewController {
-                destinationVC.router?.playerDetails.firstName = playerDetails.firstName
-                destinationVC.router?.playerDetails.lastName = playerDetails.lastName
-                destinationVC.router?.playerDetails.email = playerDetails.email
-                destinationVC.router?.playerDetails.userRating = playerDetails.userRating
-                destinationVC.router?.playerDetails.teamOption = playerDetails.teamOption
-                destinationVC.router?.playerDetails.userId = playerDetails.userId
-
-            }
-        }
+            if let destinationVC = segue.destination as? TeamSelectionViewController {
+                destinationVC.router?.playerDetails.groupID = (router?.playerDetails.groupID)!
+            }}
     }
     
     // MARK: View lifecycle
@@ -96,7 +106,7 @@ class AddPlayerDetailsViewController: UIViewController, AddPlayerDetailsDisplayL
     }
     
     @IBAction func submitUserToServer(_ sender: Any) {
-        var userDetails = AddPlayerDetails.Something.Request()
+        userDetails = AddPlayerDetails.Something.PlayerModel()
         let ratingValue = (Float(Int((self.addUserView.userRatingSlider.value * 15).rounded()) + 1/10))
         userDetails.email = router?.loginDetails![0] as! String
         userDetails.userId = router?.loginDetails![1] as! String
@@ -105,13 +115,12 @@ class AddPlayerDetailsViewController: UIViewController, AddPlayerDetailsDisplayL
         userDetails.teamOption = addUserView.teamSelectionDropDown.text ?? ""
         userDetails.userRating = NSNumber(value : ratingValue)
         userDetails.id = UUID().uuidString
-        if(addUserView.teamCaptainDropDown.text == "Yes"){
-            userDetails.teamCaptain = true
-        }else{
-            userDetails.teamCaptain = false
+        userDetails.groupID = (router?.playerDetails.groupID)!
+        
+        let queue = DispatchQueue(label: "com.app.queue")
+        queue.sync {
+            self.interactor?.countUsersInTeam(request: self.userDetails, currentInteractor: self.interactor as! AddPlayerDetailsInteractor)
         }
-        userDetails.numOfValues = 5
-        interactor?.submitPlayerDetailsToServer(add: userDetails, currentInteractor: interactor as! AddPlayerDetailsInteractor)
     }
     
     func addedPlayerDetails(showing: AddPlayerDetails.Something.PlayerModel) {
@@ -120,4 +129,50 @@ class AddPlayerDetailsViewController: UIViewController, AddPlayerDetailsDisplayL
         playerDetails = showing
         router?.routeToSomewhere()
     }
+    
+    func successfulTeamCount(response: AddPlayerDetails.Something.ResponseGroups) {
+        teamCounterA = response.teamACount
+        teamCounterB = response.teamBCount
+        teamCounterUnAssigned = response.teamUnassignedCount
+        groupResponse = response
+        if(self.teamCounterA < 5 && addUserView.teamSelectionDropDown.text == "Team A") {
+            userDetails.teamOption = addUserView.teamSelectionDropDown.text ?? ""
+            if(addUserView.teamCaptainDropDown.text == "Yes"){
+                interactor?.checkIfTeamCaptainExists(check: userDetails, currentInteractor: interactor as! AddPlayerDetailsInteractor)
+            }else{
+                userDetails.teamCaptain = false
+                interactor?.submitPlayerDetailsToServer(add: userDetails, currentInteractor: interactor as! AddPlayerDetailsInteractor)
+            }
+        }
+        else if(self.teamCounterB < 5 && addUserView.teamSelectionDropDown.text == "Team B"){
+            userDetails.teamOption = addUserView.teamSelectionDropDown.text ?? ""
+            if(addUserView.teamCaptainDropDown.text == "Yes"){
+                interactor?.checkIfTeamCaptainExists(check: userDetails, currentInteractor: interactor as! AddPlayerDetailsInteractor)
+            }else{
+                userDetails.teamCaptain = false
+                interactor?.submitPlayerDetailsToServer(add: userDetails, currentInteractor: interactor as! AddPlayerDetailsInteractor)
+            }
+        }
+        else {
+            userDetails.teamOption = "Unassigned"
+            if(addUserView.teamCaptainDropDown.text == "Yes"){
+                interactor?.checkIfTeamCaptainExists(check: userDetails, currentInteractor: interactor as! AddPlayerDetailsInteractor)
+            }else{
+                userDetails.teamCaptain = false
+                interactor?.submitPlayerDetailsToServer(add: userDetails, currentInteractor: interactor as! AddPlayerDetailsInteractor)
+            }
+        }
+    }
+    
+    func successfulTeamJoin() {
+        router?.routeToSomewhere()
+    }
+    
+    func setToUnassignedIfTeamsFull()
+    {
+        print("SUCCESS")
+//        self.interactor?.addUserToGroup(request: self.userDetails, currentInteractor: self.interactor as! JoinSquadInteractor)
+        print("Teams are full , set to unassigned")
+    }
+
 }

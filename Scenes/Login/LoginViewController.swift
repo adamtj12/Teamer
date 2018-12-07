@@ -76,7 +76,7 @@ class LoginViewController: UIViewController, LoginDisplayLogic
     {
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let destinationVC = segue.destination as? AddPlayerDetailsViewController {
+            if let destinationVC = segue.destination as? JoinSquadViewController {
                 let array : Array<String> = [self.registerUserField.text!, uid!]
                 destinationVC.router?.loginDetails = array
             }
@@ -209,7 +209,6 @@ class LoginViewController: UIViewController, LoginDisplayLogic
         }
     }
 
-    
     func addPlayer(show: Login.Something.PlayerModel) {
         uid = show.userId
         print("CLEAN SWIFT WORKING !!!!!!!!")
